@@ -1,4 +1,127 @@
 baseURL = "http://blog.aimaker.space"
-languageCode = "en-us"
+languageCode = "zh-Hans"
 title = "英荔的博客"
 theme = "hugo-theme-cleanwhite"
+googleAnalytics = "UA-XXXXX-X"
+paginate = 5 
+
+[outputs]
+home = ["HTML", "RSS"]
+
+[params]
+  header_image = "img/Elite_Education_Office.png"
+  SEOTitle = "英荔的博客 | Elite Education's Blog"
+  description = "广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」"
+  keyword = "英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun"
+  slogan = "「让孩子在 AI 时代独立思考、自信表达、自由创造」"
+
+  image_404 = "img/404-bg.jpg"
+  title_404 = "你来到了月球 :("
+  omit_categories = false
+
+  # leancloud storage for page view counter
+  page_view_conter = false 
+  leancloud_app_id = ""
+  leancloud_app_key = ""
+
+  # algolia site search
+ #algolia_search = true
+ #algolia_appId = ""
+ #algolia_indexName = ""
+ #algolia_apiKey = ""
+
+  # Sidebar settings
+  sidebar_about_description = "我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」"
+  sidebar_avatar = "img/logo.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
+  #sidebar_avatar = "img/zhaohuabing.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+  featured_tags = true 
+  featured_condition_size = 1 
+
+  # Baidu Analytics
+ #ba_track_id = ""
+  
+  # We need a proxy to access Disqus api in China
+  # Follow https://github.com/zhaohuabing/disqus-php-api to set up your own disqus proxy
+  disqus_proxy = ""
+  disqus_site = ""
+
+  # Twikoo comments
+  # Follow https://twikoo.js.org/ to set up your own env_id
+ #twikoo_env_id = ""
+
+  #Enable wechat pay & alipay to allow readers send reward money if they like the articles 
+ #reward = true 
+  # reward_guide = "如果这篇文章对你有用,请随意打赏" 
+
+  friends = false
+  bookmarks = false
+  about_me = false
+
+  # Include any custom CSS and/or JS files, url or relative to /static folder
+  #custom_css = ["css/lightbox.css", "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css", "css/main.css"]
+  #custom_js = ["js/lightbox.js", "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js", "js/main.js"]
+
+  [params.social]
+  rss            = true 
+  email          = "code@aimaker.space"
+  #facebook      = "full profile url in facebook"
+  #googleplus    = "full profile url in googleplus"
+  #twitter       = "full profile url in twitter"
+  #linkedin       = "https://www.linkedin.com/in/yourlinkedinid"
+  #stackoverflow  = "https://stackoverflow.com/users/yourstackoverflowid"
+  #instagram     = "full profile url in instagram"
+  github         = "https://github.com/longan-link"
+  wechat         = "http://aimaker.space/img/wechat.png"
+#  medium         = "full profile url in medium"
+  #pinterest     = "full profile url in pinterest"
+  #reddit        = "full profile url in reddit"
+  #gitlab        = "full profile url in gitlab"
+  #mastodon      = "full profile url in mastodon"
+  #keybase       = "full profile url in keybase"
+  #xing          = "https://www.xing.com/profile/yourxingid"
+  #git           = "full profile url for git user"
+  
+  [[params.friend_link]]
+  title = "公司官网"
+  href =  "https://www.eliteu.cn"
+
+  #[[params.bookmark_link]]
+  #title =  "Martin Fowler"
+  #href =  "https://martinfowler.com"
+  #[[params.bookmark_link]]
+  #title = "ServiceMesher"
+  #href =  "http://www.servicemesher.com"
+  #[[params.bookmark_link]]
+  #title =  "Pxhere"
+  #href = "https://pxhere.com"
+  #[[params.bookmark_link]]
+  #title = "unsplash"
+  #href = "https://unsplash.com"
+  
+  [[params.addtional_menus]]
+  title =  "公司官网"
+  href =  "https://www.eliteu.cn"
+  [[params.addtional_menus]]
+  title =  "创造乐园"
+  href =  "https://aimaker.space/"
+  #[[params.addtional_menus]]
+  #title =  "about"
+  #href =  "/top/about/"
+
+#[outputFormats.Algolia]
+#baseName = "algolia"
+#isPlainText = true
+#mediaType = "application/json"
+#notAlternative = true
+
+#[params.algolia]
+#vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
+#params = ["categories", "tags"] 
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 2
+    startLevel = 1
+  [markup.highlight]
+    style = "dracula"
