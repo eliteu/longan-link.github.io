@@ -1,0 +1,4 @@
+baseURL = "http://blog.aimaker.space"
+languageCode = "en-us"
+title = "英荔的博客"
+theme = "hugo-theme-cleanwhite"
