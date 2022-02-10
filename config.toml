@@ -115,9 +115,9 @@ home = ["HTML", "RSS"]
 #mediaType = "application/json"
 #notAlternative = true
 
-#[params.algolia]
-#vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
-#params = ["categories", "tags"] 
+[params.algolia]
+vars = ["title", "summary", "date", "publishdate", "expirydate", "permalink"]
+params = ["categories", "tags"] 
 
 [markup]
   [markup.tableOfContents]
@@ -125,3 +125,6 @@ home = ["HTML", "RSS"]
     startLevel = 1
   [markup.highlight]
     style = "dracula"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
