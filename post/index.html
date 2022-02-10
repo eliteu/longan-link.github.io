@@ -1,6 +1,5 @@
 <!doctype html><html lang=zh-hans>
 <head>
-<meta name=generator content="Hugo 0.92.1">
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1">
@@ -17,8 +16,8 @@
 <meta property="twitter:card" content="summary">
 <meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
 <link rel="shortcut icon" href=/img/favicon.ico>
-<title>英荔的博客-英荔的博客 | Elite Education's Blog</title>
-<link rel=canonical href=/>
+<title>Posts-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/>
 <link rel=stylesheet href=/css/iDisqus.min.css>
 <link rel=stylesheet href=/css/bootstrap.min.css>
 <link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
@@ -65,63 +64,33 @@
 </div>
 </div>
 </header>
+<article>
 <div class=container>
 <div class=row>
-<div class="col-lg-8 col-lg-offset-1
-col-md-8 col-md-offset-1
-col-sm-12
-col-xs-12
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
 post-container">
-<div class=post-preview>
-<a href=http://blog.aimaker.space/post/microblocks/microblocks-ailens-library/>
-<h2 class=post-title>
-MicroBlocks 编程案例: 创建 AI 摄像头库
-</h2>
-<div class=post-content-preview>
-前言 接上文, 火星资源挑战赛使用了 AI 摄像头: AILens
-于是我打算将其接入 MicroBlocks。
-思路 AILens 相关的 MicroPython 驱动代码，都在 Github 上: PlanetX_MicroPython/AILens.py
-我试着将这些代码翻译到 MicroBlcoks，和之前的几篇文章思路一样。
-在 MicroBlocks 里的编程，十分愉快。 由于已经熟悉了对 I2C 设备编程，轻车熟路 ，完成 AILens 的驱动可能不到 1 小时。
-我已经将驱动提交给了官方
-演示
-尝鲜 愿意尝鲜的同学可以下载使用它: AILens.ubl
-可以从这里加载自定义的代码库:
-编写代码库(library)的技巧 在 MicroBlocks 里编写代码库非常简单。
-初始化 在 MicroBlocks 里，我们只能将自定义积木导出为代码库(library)， 所以「当启动时积木」不会被到导出代码库里。
-这带来一个问题，一些需要初始化的代码怎么办呢？ 这类代码往往有个特征: 只需要初始化一次。类似 Python class 里的 __init__ 函数。
-初始化的技巧是通用的，技巧如下:
-(ps: 图中初始化代码做了简化处理)
-setup 自定义积木，一般配合一个变量使用:initialized, 通过这个变量来记忆是否是第一次操作(一开始变量是 0)。 值得之一的是 setup 幂等函数。 这样你可以把setup 放到任何地方（确保其他代码运行之前先运行setup），不必担心多次掉用它。
 </div>
-</a>
-<p class=post-meta>
-Posted by英荔的博客 Saturday, January 29, 2022
-</p>
-</div>
-<hr>
-</div>
-<div class="col-lg-3 col-lg-offset-0
-col-md-3 col-md-offset-0
-col-sm-12
-col-xs-12
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
 sidebar-container">
 <section>
 <hr class="hidden-sm hidden-xs">
-<h5>FEATURED TAGS</h5>
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
 <div class=tags>
 </div>
 </section>
 </div>
 </div>
 </div>
+</article>
 <footer>
 <div class=container>
 <div class=row>
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <ul class="list-inline text-center">
 <li>
-<a href=/index.xml rel=alternate type=application/rss+xml title=英荔的博客>
+<a href=/post/index.xml rel=alternate type=application/rss+xml title=英荔的博客>
 <span class="fa-stack fa-lg">
 <i class="fas fa-circle fa-stack-2x"></i>
 <i class="fas fa-rss fa-stack-1x fa-inverse"></i>

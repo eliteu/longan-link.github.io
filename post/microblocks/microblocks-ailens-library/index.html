@@ -1,0 +1,227 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例: 创建 AI 摄像头库">
+<meta property="og:title" content="MicroBlocks 编程案例: 创建 AI 摄像头库">
+<meta property="twitter:title" content="MicroBlocks 编程案例: 创建 AI 摄像头库">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例: 创建 AI 摄像头库-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/microblocks-ailens-library/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例: 创建 AI 摄像头库</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Saturday, January 29, 2022
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<p><a href=https://www.elecfreaks.com/learn-en/_images/05035_01.png>
+<img src=https://www.elecfreaks.com/learn-en/_images/05035_01.png alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%89%8D%E8%A8%80></a>前言</h2>
+<p>接<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/>上文</a>, 火星资源挑战赛使用了 AI 摄像头: <a href=https://www.elecfreaks.com/learn-cn/microbitplanetX/ai/Plant_X_EF05035.html>AILens</a></p>
+<p>于是我打算将其接入 MicroBlocks。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye6809de8b7af思路><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E6%80%9D%E8%B7%AF></a>思路</h2>
+<p>AILens 相关的 MicroPython 驱动代码，都在 Github 上: <a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/AILens.py>PlanetX_MicroPython/AILens.py</a></p>
+<p>我试着将这些代码翻译到 MicroBlcoks，和之前的几篇文章思路一样。</p>
+<hr>
+<p>在 MicroBlocks 里的编程，十分愉快。 由于已经熟悉了对 I2C 设备编程，轻车熟路 ，完成 AILens 的驱动可能不到 1 小时。</p>
+<p><a href=https://wwj718.github.io/post/img/1643196398857.jpg>
+<img src=https://wwj718.github.io/post/img/1643196398857.jpg alt>
+</a></p>
+<p>我已经将驱动<a href=https://bitbucket.org/john_maloney/smallvm/pull-requests/19>提交给了官方</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye6bc94e7a4ba演示><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E6%BC%94%E7%A4%BA></a>演示</h2>
+<p><video width=80% src=https://adapter.codelab.club/video/1643171522875763.mp4 controls></video>
+<video width=80% src=https://adapter.codelab.club/video/1643172494658270.mp4 controls></video></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5b09de9b29c尝鲜><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%B0%9D%E9%B2%9C></a>尝鲜</h2>
+<p>愿意尝鲜的同学可以下载使用它: <a href=https://wwj718.github.io/post/img/AILens.ubl>AILens.ubl</a></p>
+<p>可以从这里加载自定义的代码库:</p>
+<p><a href=https://wwj718.github.io/post/img/1643008474077.jpg>
+<img src=https://wwj718.github.io/post/img/1643008474077.jpg alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye7bc96e58699e4bba3e7a081e5ba93-library-e79a84e68a80e5b7a7编写代码库library的技巧><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E5%BA%93-library-%E7%9A%84%E6%8A%80%E5%B7%A7></a>编写代码库(library)的技巧</h2>
+<p>在 MicroBlocks 里编写代码库非常简单。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5889de5a78be58c96初始化><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%88%9D%E5%A7%8B%E5%8C%96></a>初始化</h3>
+<p>在 MicroBlocks 里，我们只能将自定义积木导出为代码库(library)， 所以「当启动时积木」不会被到导出代码库里。</p>
+<p>这带来一个问题，一些需要初始化的代码怎么办呢？ 这类代码往往有个特征: 只需要初始化一次。类似 Python class 里的 <code>__init__</code> 函数。</p>
+<p>初始化的技巧是通用的，技巧如下:</p>
+<p><a href=https://wwj718.github.io/post/img/1643195686935.jpg>
+<img src=https://wwj718.github.io/post/img/1643195686935.jpg alt>
+</a></p>
+<p>(ps: 图中初始化代码做了简化处理)</p>
+<p><code>setup</code> 自定义积木，一般配合一个变量使用:<code>initialized</code>, 通过这个变量来记忆是否是第一次操作(一开始变量是 0)。 值得之一的是 setup 幂等函数。 这样你可以把<code>setup</code> 放到任何地方（确保其他代码运行之前先运行setup），不必担心多次掉用它。</p>
+<p>这些技巧我也是通过「显示积木定义」学来的 : )</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye4b88be68b89e6a186下拉框><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E4%B8%8B%E6%8B%89%E6%A1%86></a>下拉框</h3>
+<p>AILens 代码库里，<code>switch mode</code> 积木使用了下拉框</p>
+<p><a href=https://wwj718.github.io/post/img/1643196398857-1.jpg>
+<img src=https://wwj718.github.io/post/img/1643196398857-1.jpg alt>
+</a></p>
+<p>目前无法在 IDE 里添加下拉框类型的输入。我是直接修改文本代码做到的（通过学习其他 library 的代码）。</p>
+<p>但我不喜欢在文本里编程，我的做法是，在 MicroBlocks图形环境里，大体完成自定义积木后</p>
+<p><a href=https://wwj718.github.io/post/img/1643255190150.jpg>
+<img src=https://wwj718.github.io/post/img/1643255190150.jpg alt>
+</a></p>
+<p>再在文本环境里微调:</p>
+<p><a href=https://wwj718.github.io/post/img/1643255276038.jpg>
+<img src=https://wwj718.github.io/post/img/1643255276038.jpg alt>
+</a></p>
+<p>（与 Scratch 插件里的做法类似）</p>
+<p>相信未来图形IDE里就会添加这个支持。</p>
+<h3 id=参考>参考</h3>
+<ul>
+<li><a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/AILens.py>PlanetX_MicroPython/AILens.py</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/>MicroBlocks 编程案例: 创建 AI 摄像头库</a></p>
+<hr>
+<ul class=pager>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>
