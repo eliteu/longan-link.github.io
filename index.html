@@ -101,6 +101,35 @@ Posted by英荔的博客 Saturday, January 29, 2022
 </div>
 <hr>
 <div class=post-preview>
+<a href=http://blog.aimaker.space/post/microblocks/hit-the-bullseye/>
+<h2 class=post-title>
+MicroBlocks 编程案例: 正中靶心！
+</h2>
+<div class=post-content-preview>
+历史人物胡乱射出一箭, 历史学家在箭的落点画个圈说: 看！他正中靶心！
+前言 @leeyve 最近买了两个机器人，问我能否接管它们，使其可编程。我拿来玩了会儿，十分喜欢，于是便着手试着用蓝牙接管它们。
+蓝牙黑客的工作主要集中在处理 bytes，只要愿意投入时间，总是可以弄懂传输的信息，更何况身后有伟大的开源社区。
+在汇景上课，课间十分钟，完成了第一次控制。
+以下是接管之后，在 Python 里对其编程的小例子(近期我们也会将其接入 Scratch)
+然而，我们今天并不打算讨论蓝牙黑客的技巧，玩一些更有趣的东西。
+ps: 如果你对蓝牙黑客感兴趣, 可能会喜欢 btlejack
+猜想与反驳 知识，特别是我们的科学知识，是通过未经证明的（和不可证明的）预言，通过猜测，通过对我们问题的尝试性解决，通过猜想而进步的。 – 波普尔《猜想与反驳》
+在瞎折腾的过程中，我们发现这两机器人有一种对战模式: 当用户驾驶机器人对战时，如果按下发射按钮，击中对方，另一个机器人会被击败。
+机器人并没有真的发出的子弹，另一个机器人如何知道被击中呢？ 我猜测，机器人身上带有红外发射器和红外接收器。
+猜想的具体内容是: 红外基本沿直线传播，如果一个机器人的红外发射器发出红外线，正好被另一个机器人的红外接收器收到，就产生了 “击中” 事件。
+验证 我想验证这个想法，于是找来 micro:bit， 翻箱倒柜，从 CodeLab 旧物箱里找到 m5stack 的红外传感器:
+在旧物箱里又找到一个不知哪个公司的红外遥控器:
+我将红外传感器接到 micro:bit 里，之前没有对红外设备进行编程的经验，但因为有 Microblocks，信心十足，感觉可以搞定它，因为 Microblocks 是一个放大你心智力量的编程环境，对探索和理解事物提醒了绝佳支持。
+我将 m5stack 的红外传感器(IN pin)连到 micro:bit 1 号引脚，通过使用 Microblocks 内置的 IR Remote (在 积木库/Other 分类里):
+现在，可以实时观察到接受自红外遥控器的信号。
+</div>
+</a>
+<p class=post-meta>
+Posted by英荔的博客 Tuesday, December 14, 2021
+</p>
+</div>
+<hr>
+<div class=post-preview>
 <a href=http://blog.aimaker.space/post/microblocks/dynablocks-microbit-xlight/>
 <h2 class=post-title>
 MicroBlocks 编程案例 使用 micro:bit 接管 xlight
