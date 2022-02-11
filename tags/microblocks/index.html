@@ -77,13 +77,7 @@ post-container">
 MicroBlocks 编程案例: MQTT 库
 </h2>
 <div class=post-content-preview>
-前言 CodeLab 候车群里吸引了一些「个人计算」爱好者，他们容易被「个人计算」气质的项目吸引。从 Scratch、Smalltalk 到 MicroBlocks.
-最近群里讨论 MicroBlocks 十分起劲，过年期间，也玩得不亦乐乎， @kwyjibo 做了很棒的梳理。
-年前大家在「CodeLab 候车群」聊到对 MicroBlocks 有一些疑问，其中一个问题是，MicroBlocks 何时支持 MQTT？我把问题转给了 @John Maloney，他说在他那边 MQTT 优先级比较低，问我是否有兴趣来做。我答应他试试看。
-我担心超出我的能力范围，结果发现，这工作比我预期的简单，假期里完成了 MQTT 库，目前已提交给官方并合并到了 dev 分支。
-思路 为 MicroBlocks 构建 MQTT 库，比我构建之前的几个库来得复杂:
-MicroBlocks 编程案例: 创建 Sphero RVR 代码库 MicroBlocks 编程案例: 创建哪吒扩展板代码库 MicroBlocks 编程案例: 创建 AI 摄像头代码库 构建 MQTT 库与构建 传感器/执行器 库(通常是 I2C 协议)的区别在于: 后者只需要在 IDE 里编程(摆弄硬件协议，通常是 I2C)，换句话说，只需要拼搭积木即可，而构建 MQTT 库则需要在虚拟机(vm)层面编程。
-MicroBlocks 虚拟机 MicroBlocks 虚拟机是 MicroBlocks 如此卓越的主要原因之一。了解 Smalltalk 架构的朋友，可能会在这里看到 Smalltlak 的影子。 这并不偶然，MicroBlocks 的创始人之前也是 Squeak 的核心开发者(Morphic 的发明者)。
+前言 CodeLab 候车群里吸引了一些「个人计算」爱好者，他们容易被「个人计算」气质的项目吸引。从 Scratch、Smalltalk 到 MicroBlocks. 最近群里讨论 MicroBlocks 十分起劲，过年期间，也玩得不亦乐乎， @kwyjibo 做了很棒的梳理。 年前大家在「CodeLab 候车群」聊到对 MicroBlocks 有一些疑
 </div>
 </a>
 <p class=post-meta>
@@ -97,15 +91,7 @@ Posted by英荔的博客 Tuesday, February 8, 2022
 MicroBlocks 编程案例: WebSocket server
 </h2>
 <div class=post-content-preview>
-前言 MicroBlocks 内置了若干与网络相关的库(都在 Network 分类下):
-就网络通信而言，对于许多用例，HTTP 是最简易的协议。但有时，我们需要更好的实时性或想要双向通信，那么 WebSocket 和 MQTT 就是更好的选择。
-什么时候使用 MQTT，什么时候使用 WebSocket 呢？
-如果你想在在公网范围内通信， 使用 MQTT 可能更简单。 局域网内的应用，推荐 WebSocket，它不需要额外的 broker（实时性也更好） （目前 MicroBlocks 只提供 WebSocket server 库，而不提供 WebSocket client 库，我问 John 是否有计划实施 WebSocket client ，他说他还想不到典型用例。如果你有典型用例欢迎在 MicroBlocks issue 里提）
-使用 WebSocket server 库 谁先拔枪 我之前用 mediapipe 做了一个 AI 演示项目: 谁先拔枪。
-游戏有两位玩家，倒计时 3-2-1，先拔枪且对准对方(水平指向对方)的人获胜。
-游戏创意来自 Switch 上的游戏 《1 2 Switch》，《1 2 Switch》利用 Switch 手柄里的陀螺仪来检测玩家的手势。
-而我的演示里，使用机器视觉来做，这样的好处除了不依赖于手柄，还有儿时过家家的童趣: 比划手指当枪使(biu~biu~biu~)
-为了增加表现力，我在游戏区域周围加了一个灯带: 模拟子弹从胜利的一方射出。 有围观者说它有 90 年代舞厅的浮夸效果，夜色下尤甚。
+前言 MicroBlocks 内置了若干与网络相关的库(都在 Network 分类下): 就网络通信而言，对于许多用例，HTTP 是最简易的协议。但有时，我们需要更好的实时性或想要双向通信，那么 WebSocket 和 MQTT 就是更好的选择。 什么时候使用 MQTT，什么时候使用 WebSocket 呢？ 如果你想在在公网范围内通信，
 </div>
 </a>
 <p class=post-meta>
@@ -119,21 +105,7 @@ Posted by英荔的博客 Tuesday, February 8, 2022
 MicroBlocks 编程案例: 创建 AI 摄像头库
 </h2>
 <div class=post-content-preview>
-前言 接上文, 火星资源挑战赛使用了 AI 摄像头: AILens
-于是我打算将其接入 MicroBlocks。
-思路 AILens 相关的 MicroPython 驱动代码，都在 Github 上: PlanetX_MicroPython/AILens.py
-我试着将这些代码翻译到 MicroBlcoks，和之前的几篇文章思路一样。
-在 MicroBlocks 里的编程，十分愉快。 由于已经熟悉了对 I2C 设备编程，轻车熟路 ，完成 AILens 的驱动可能不到 1 小时。
-我已经将驱动提交给了官方
-演示
-尝鲜 愿意尝鲜的同学可以下载使用它: AILens.ubl
-可以从这里加载自定义的代码库:
-编写代码库(library)的技巧 在 MicroBlocks 里编写代码库非常简单。
-初始化 在 MicroBlocks 里，我们只能将自定义积木导出为代码库(library)， 所以「当启动时积木」不会被到导出代码库里。
-这带来一个问题，一些需要初始化的代码怎么办呢？ 这类代码往往有个特征: 只需要初始化一次。类似 Python class 里的 __init__ 函数。
-初始化的技巧是通用的，技巧如下:
-(ps: 图中初始化代码做了简化处理)
-setup 自定义积木，一般配合一个变量使用:initialized, 通过这个变量来记忆是否是第一次操作(一开始变量是 0)。 值得之一的是 setup 幂等函数。 这样你可以把setup 放到任何地方（确保其他代码运行之前先运行setup），不必担心多次掉用它。
+前言 接上文, 火星资源挑战赛使用了 AI 摄像头: AILens 于是我打算将其接入 MicroBlocks。 思路 AILens 相关的 MicroPython 驱动代码，都在 Github 上: PlanetX_MicroPython/AILens.py 我试着将这些代码翻译到 MicroBlcoks，和之前的几篇文章思路一样。 在 MicroBlocks 里的编程，十分愉快。 由于已经熟悉了对 I2C 设备
 </div>
 </a>
 <p class=post-meta>
@@ -147,18 +119,7 @@ Posted by英荔的博客 Saturday, January 29, 2022
 MicroBlocks 编程案例: 创建哪吒扩展板库
 </h2>
 <div class=post-content-preview>
-你无法用制造问题的思路解决问题
-前言 英荔和恩孚联合举办的火星资源挑战赛，去年(月球资源挑战赛)全国有数百支队伍参加，赛事使用了哪吒扩展板来驱动小车， @Leeyve 和 @Jackson 希望基于 MicroBlocks 平台来开展赛事(替代 MakeCode 平台)。于是我这两天试着在 MicroBlocks 里接管哪吒扩展板以及小车使用到的其他传感器/执行器。
-思路 哪吒扩展板来自恩孚公司, 恩孚的产品在海外很受欢迎(MicroBlocks 官方的例子有些就用了恩孚的扩展板)。我喜欢恩孚这家公司的开放作风，他们的产品文档开放又出色。之前我们在 CodeLab 有一些新的脑洞，恩孚的 CPO @song兄 都非常乐意提供支持。
-哪吒扩展板相关的驱动代码，都在 Github 上: PlanetX_MicroPython/nezha.py
-我打算将这些代码翻译到 MicroBlcoks，和MicroBlocks 编程案例: 创建 Sphero RVR 代码库的思路一样。
-困境 结果遇到了困难。
-比赛小车驱动的设备，基本都采用 I2C 通信。当前工作的实质是变着花样摆弄 I2C。将电机和舵机接入 MicroBlcoks 相当简单，翻译这部分 MicroPython 代码即可，只用了一会儿功夫, 第一次运行就成功了！
-但接入颜色传感器花了我好几个小时！
-颜色传感器 MicroPython 驱动 比较复杂，但也只是摆弄 I2C 而已，但与电机/舵机这类执行器不同，颜色传感器需要从 I2C 地址获取数据（不只是写入数据）。
-驱动的代码量很大:
-代码始终没有按照预期运行。我猜测错误的最大可能是大量 16 进制数造成的（诸如粗心导致的输入错误之类的），反复检查了 5-10 遍代码，始终没找到这方面的任何错误。
-MicroBlocks 平台提供的强大支持 一筹莫展之下，我想了个主意，先缩小错误的范围，不想每次都检查一大堆的代码。 策略是对比 颜色传感器 MicroPython 驱动 和 MicroBlocks 的代码中间结果的差别，定位出最早的异常。
+你无法用制造问题的思路解决问题 前言 英荔和恩孚联合举办的火星资源挑战赛，去年(月球资源挑战赛)全国有数百支队伍参加，赛事使用了哪吒扩展板来驱动小车， @Leeyve 和 @Jackson 希望基于 MicroBlocks 平台来开展赛事(替代 MakeCode 平台)。于是我这两天试着在 MicroBlocks 里接管哪吒扩展板以及小车使用
 </div>
 </a>
 <p class=post-meta>
@@ -172,17 +133,53 @@ Posted by英荔的博客 Tuesday, January 25, 2022
 MicroBlocks 编程案例: 创建 Sphero RVR 代码库
 </h2>
 <div class=post-content-preview>
-前言 由于科技节项目和 @yinxi 的演示项目都使用到了 Sphero RVR, 于是我想接管 RVR.
-CodeLab Adapter 之前已经接入了 RVR (通过蓝牙)，windows 下连接蓝牙有时会连不上(跟 RVR 的蓝牙服务本身也有关)，体验不好。最近我们都很喜欢 MicroBlocks， 于是我想在 MicroBlocks 里实现 Sphero RVR 驱动.
-思路 查看 Sphero RVR 的官方文档, 了解到 Sphero RVR 已经有 MicroPython 驱动和 MakeCode 驱动了。
-于是我打算将 MicroPython 驱动 翻译到 MicroBlocks，然后作为一个库(library) 提交给官方。
-阅读 MicroPython 驱动代码，可以发现是通过 UART 来通信。我试着使用 MicroBlocks 的串口积木来实现目标。
-困境 结果遇到了困难，在 MicroBlocks 对 micro:bit 编程, 使用串口积木发送的数据，和通过 USB 端口收到的数据(comtool)不一致。 我将问题提交到了 MicroBlocks 项目 issue ，得到 MicroBlocks 几位作者的热心帮助。
-热心帮助 从 @Turgut Guneysu 那儿了解到 USB 端口服务于 MicroBlocks IDE 本身的功能(协议细节)。 @John Maloney 提议将 micro:bit V2 的 0/1 pin 用于 UART 引脚，然后直接用引脚接管 RVR(因为树莓派就是这样驱动 RVR 的)。
+前言 由于科技节项目和 @yinxi 的演示项目都使用到了 Sphero RVR, 于是我想接管 RVR. CodeLab Adapter 之前已经接入了 RVR (通过蓝牙)，windows 下连接蓝牙有时会连不上(跟 RVR 的蓝牙服务本身也有关)，体验不好。最近我们都很喜欢 MicroBlocks， 于是我想在 MicroBlocks 里实现 Sphero RVR 驱动. 思
 </div>
 </a>
 <p class=post-meta>
 Posted by英荔的博客 Monday, January 24, 2022
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=http://blog.aimaker.space/post/microblocks/dynablocks-sonoff-s20/>
+<h2 class=post-title>
+MicroBlocks 编程案例: sonoff 智能插座
+</h2>
+<div class=post-content-preview>
+前言 市面上的许多智能设备都搭载了 ESP32 系列微控制器，由于 microblocks 支持 ESP32(esp32 devkit-v1) 和 ESP8266(NodeMCU), 想用 microblocks 来接管真实世界的设备。 特别提醒: 千万不要在插座这类「强电设备」通着电的时候对其操作，否则可能对你造成伤害，也可能毁掉电脑。 思路 寻思着从接管哪个设备开始。 由于我对硬件拆解
+</div>
+</a>
+<p class=post-meta>
+Posted by英荔的博客 Friday, January 14, 2022
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=http://blog.aimaker.space/post/microblocks/dynablocks-esp32-website/>
+<h2 class=post-title>
+MicroBlocks 编程案例: 在 ESP32 里运行网站
+</h2>
+<div class=post-content-preview>
+上周六在 CodeLab 候车群 里提到: 下周我打算做一个实验，在 ESP32 板子上，运行一个网站和一个聊天服务器, 然后通过端口映射，提供出公网服务。由于 ESP32 的廉价和低功耗, 意味着可以使用太阳能来驱动这个 10 多块钱的 web 后端服务器。打算在 microblocks 里开发。 心急等不到下周，周六下午去
+</div>
+</a>
+<p class=post-meta>
+Posted by英荔的博客 Monday, January 10, 2022
+</p>
+</div>
+<hr>
+<div class=post-preview>
+<a href=http://blog.aimaker.space/post/microblocks/dynablocks-esp32/>
+<h2 class=post-title>
+MicroBlocks 编程案例: ESP32
+</h2>
+<div class=post-content-preview>
+使用 smalltalk 编程，不需要掉头发和眼泪 –Alan Kay ESP32 手头有几块 ESP32 板子（恰好都是ESP-WROOM-32 表面贴装模块） ESP32 是一系列低成本，低功耗的单片机微控制器，集成了 Wi-Fi(2.4G) 和双模蓝牙。 – 维基百科 ESP32 在 maker 群体中广受欢迎，有庞大的生态(在 Github 搜索 ESP 试试)。它也深
+</div>
+</a>
+<p class=post-meta>
+Posted by英荔的博客 Saturday, January 8, 2022
 </p>
 </div>
 <hr>
