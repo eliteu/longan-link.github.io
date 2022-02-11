@@ -1,0 +1,245 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例: 在 ESP32 里运行网站">
+<meta property="og:title" content="MicroBlocks 编程案例: 在 ESP32 里运行网站">
+<meta property="twitter:title" content="MicroBlocks 编程案例: 在 ESP32 里运行网站">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例: 在 ESP32 里运行网站-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/dynablocks-esp32-website/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例: 在 ESP32 里运行网站</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Monday, January 10, 2022
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<p>上周六在 CodeLab 候车群 里提到:</p>
+<blockquote>
+<p>下周我打算做一个实验，在 ESP32 板子上，运行一个网站和一个聊天服务器, 然后通过端口映射，提供出公网服务。由于 ESP32 的廉价和低功耗, 意味着可以使用太阳能来驱动这个 10 多块钱的 web 后端服务器。打算在 microblocks 里开发。</p>
+</blockquote>
+<p>心急等不到下周，周六下午去实务学堂上完课，从小洲村回到公司，取了一块 ESP32 板子回家做实验，由于 microblocks 提供了强大的沉浸式编程体验(类似 Smalltalk，放大心智的力量)，一会儿就搞出了原型。</p>
+<p><video width=80% src=https://adapter.codelab.club/video/1641644601520772.mp4 controls></video></p>
+<p>视频的后半段，十分有趣, 当我在浏览器里请求 <code>/hi</code> 时，web 服务已经被我中止了，我临时创建了响应内容:<code>hello esp32</code>, 并立刻用它响应来自浏览器的请求, 在我点击 <code>响应</code>  积木的瞬间，浏览器才收到回复。我们在请求和响应之间进行交互式编程！这过程极大增强了 web 编程的可理解性，我们可以在 microblocks 里交互式地观察请求的细节，并随时手动给出响应，换句话说，我们的大脑和双手成了后端运行时(runtime)的一部分！</p>
+<p>之后，我有个想法，考虑到这个太阳能驱动的网站，可能因太阳暴晒导致芯片温度升高，于是想构建一个自动降温装置: 当温度太高时，打开风扇</p>
+<p><video width=80% src=https://adapter.codelab.club/video/d394a5677121477a7fe76600511f54.mp4 controls></video></p>
+<p>通过 microblocks 的通用实时图表功能，可以很快看出代码中的临界参数应该选什么值（当温度超过预设的临界值，就打开风扇）。大多数编译型编程环境，是”闭着眼睛排列代码/积木”。</p>
+<p>家庭作坊，就地取材，为了压住风扇不乱跑，用的是橘子, 为了模拟阳光暴晒，用的是电吹风 ：）</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee68a80e69cafe7bb86e88a82技术细节><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82></a>技术细节</h2>
+<p><a href=https://wwj718.github.io/post/img/esp32-website.ubp>esp32-website.ubp</a></p>
+<p><a href=https://wwj718.github.io/post/img/1641810100488.jpg>
+<img src=https://wwj718.github.io/post/img/1641810100488.jpg alt>
+</a></p>
+<p>代码简洁清晰，无需过多解释。</p>
+<p>来看看 microblocks 的 HTTP server 库，<code>http server request</code> 积木用于获取客户端请求，<code>response</code> 积木用于给出响应。 编程模型与大多数 web 后端语言一致: 接受客户端的请求，然后给予响应，一直循环上述过程。microblocks 构建出的是动态网站！</p>
+<p>有一处值得注意，在每次循环中，<code>http server request</code> 与 <code>response</code> 应该都只出现一次(成对出现)，如果你想多次使用<code>http server request</code>，应该把它保存到变量里，然后多次使用这个变量。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee585ace7bd91e8aebfe997ae公网访问><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E5%85%AC%E7%BD%91%E8%AE%BF%E9%97%AE></a>公网访问</h3>
+<p>由于 ESP32 连接到局域网 WIFI， 我打算使用 <a href=https://ngrok.com/>ngrok</a>(也可使用 frp 之类的工具) 将其 web 服务端口映射到公网上。如果你直接在 ESP32 上接了网线，且有公网地址，则不需要使用 ngrok。</p>
+<p>正好桌面上有一个树莓派，我将 <code>ngrok</code> 运行在树莓派里（树莓派和 ESP32 在同个网络下），这样就不需要关机了。</p>
+<p>首先需要获得 ESP32 的 IP 地址，这简单，microblocks 的 WIFI 库有对应积木，交互式地查看它即可，我们<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32/>之前</a>提到 microblocks 交互式的环境可以充当硬件的“屏幕”！ 不像许多数编译式的环境，代码一旦烧录，就不懂它在内部干嘛了，随然串口输出有用，但你需要事先知道该输出什么调试信息，这是很讽刺的，因为意外的问题，正好是你事先不知道的，好的环境应该允许你与系统进行深层次的实时交互，让你不断解决意外的问题，并加深对它的理解，所有这些都发生在行进过程中。正如 Alan Kay 喜欢说的: 在飞行中改进系统。</p>
+<p>拿到 ESP32 的地址后（如<code>10.0.0.49</code>）, 我们就可以把它映射到公网了: <code>./ngrok http http://10.0.0.49</code></p>
+<p><a href=https://wwj718.github.io/post/img/1641811386329.jpg>
+<img src=https://wwj718.github.io/post/img/1641811386329.jpg alt>
+</a></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee9a1b5e99da2e4bfa1e681af页面信息><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E9%A1%B5%E9%9D%A2%E4%BF%A1%E6%81%AF></a>页面信息</h3>
+<p>当你访问映射出的公网地址时，会看到如下页面。</p>
+<p><a href=https://wwj718.github.io/post/img/1641811517583.jpg>
+<img src=https://wwj718.github.io/post/img/1641811517583.jpg alt>
+</a></p>
+<p>你可以修改前边的代码，写任何你喜欢的 html 代码，我喜欢 markdown，所以采用 markdown 来写页面，这是从 <a href=https://tinlizzie.org/ohshima/>Yoshiki Ohshima</a> 那儿学来的。</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-HTML data-lang=HTML>&lt;<span style=color:#ff79c6>meta</span> <span style=color:#50fa7b>charset</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;UTF-8&#34;</span> /&gt;
+## path 
+* light 
+    * [on](/lighton) 
+    * [off](/lightoff) 
+* fans 
+    * [on](/fanson) 
+    * [off](/fansoff) 
+* [codelab](/codelab)
+&lt;<span style=color:#ff79c6>style</span> <span style=color:#50fa7b>class</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;fallback&#34;</span>&gt;<span style=color:#ff79c6>body</span> {<span style=color:#ff79c6>visibility</span>: <span style=color:#ff79c6>hidden</span>;<span style=color:#ff79c6>white-space</span>: <span style=color:#ff79c6>pre</span>;<span style=color:#ff79c6>font-family</span>: <span style=color:#ff79c6>monospace</span>;}&lt;/<span style=color:#ff79c6>style</span>&gt;
+&lt;<span style=color:#ff79c6>script</span> <span style=color:#50fa7b>src</span><span style=color:#ff79c6>=</span><span style=color:#f1fa8c>&#34;https://casual-effects.com/markdeep/latest/markdeep.min.js&#34;</span>&gt;&lt;/<span style=color:#ff79c6>script</span>&gt;
+&lt;<span style=color:#ff79c6>script</span>&gt;<span style=color:#8be9fd;font-style:italic>window</span>.alreadyProcessedMarkdeep <span style=color:#ff79c6>||</span>(<span style=color:#8be9fd;font-style:italic>document</span>.body.style.visibility <span style=color:#ff79c6>=</span> <span style=color:#f1fa8c>&#34;visible&#34;</span>);&lt;/<span style=color:#ff79c6>script</span>&gt;
+</code></pre></div><p>你也可以把 html 文件和其他静态文件永久托管在 ESP32 ESP32 能存几 MB 的文件！使用 microblocks 提供的文件库即可。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee5a4aae998b3e883bde794b5e6b1a0太阳能电池><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E5%A4%AA%E9%98%B3%E8%83%BD%E7%94%B5%E6%B1%A0></a>太阳能电池</h2>
+<p>我目前使用移动电源驱动网站。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG5365.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG5365.jpeg alt>
+</a></p>
+<p>由于 ESP32 的低功耗, 意味着可以使用太阳能来驱动它。最近广州阴雨天，太阳能电池还没到, 以后有时间再测试。</p>
+<p>如果你有兴趣来做，电路方面可以参考<a href=https://mc.dfrobot.com.cn/thread-271789-1-1.html>这篇文章</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee8818ae5a4a9e69c8de58aa1e599a8聊天服务器><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E8%81%8A%E5%A4%A9%E6%9C%8D%E5%8A%A1%E5%99%A8></a>聊天服务器</h2>
+<p>在 ESP32 里构建聊天服务器完全没有问题，由于 ESP32 带有文件系统，可以在服务器端保留消息，为离线用户存储历史消息。</p>
+<p>我之前想使用 websocket 来构建聊天服务器，目前 microblocks 作者没写 websocket 的用例，我还没摸索出用法。之后有空再折腾，我本来还打算使用 <a href=https://htmx.org/>htmx</a> 构建客户端。</p>
+<p>你也可以使用 HTTP server 库构建聊天服务器，应该很简单。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee5908ee8aeb0后记><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E5%90%8E%E8%AE%B0></a>后记</h2>
+<p>下班之前运行的网站，12小时之后，依然稳定运行。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-esp32-websitee58f82e88083参考><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/#%E5%8F%82%E8%80%83></a>参考</h2>
+<ul>
+<li><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32/>Microblocks 编程案例: ESP32</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-esp32-website/>MicroBlocks 编程案例: 在 ESP32 里运行网站</a></p>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/microblocks/dynablocks-esp32/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: ESP32">&larr;
+Previous Post</a>
+</li>
+<li class=next>
+<a href=/post/microblocks/dynablocks-sonoff-s20/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: sonoff 智能插座">Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>

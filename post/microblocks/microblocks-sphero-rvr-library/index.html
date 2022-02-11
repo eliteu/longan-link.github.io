@@ -1,0 +1,268 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例: 创建 Sphero RVR 代码库">
+<meta property="og:title" content="MicroBlocks 编程案例: 创建 Sphero RVR 代码库">
+<meta property="twitter:title" content="MicroBlocks 编程案例: 创建 Sphero RVR 代码库">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例: 创建 Sphero RVR 代码库-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/microblocks-sphero-rvr-library/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例: 创建 Sphero RVR 代码库</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Monday, January 24, 2022
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<p><a href=https://adapter.codelab.club/img/rvr_bar.jpeg>
+<img src=https://adapter.codelab.club/img/rvr_bar.jpeg alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E5%89%8D%E8%A8%80></a>前言</h2>
+<p>由于科技节项目和 @yinxi 的演示项目都使用到了 Sphero RVR, 于是我想接管 RVR.</p>
+<p>CodeLab Adapter 之前已经<a href=https://adapter.codelab.club/extension_guide/spheroRVR/>接入了 RVR (通过蓝牙)</a>，windows 下连接蓝牙有时会连不上(跟 RVR 的蓝牙服务本身也有关)，体验不好。最近我们都很喜欢 MicroBlocks， 于是我想在 MicroBlocks 里实现 Sphero RVR 驱动.</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye6809de8b7af思路><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E6%80%9D%E8%B7%AF></a>思路</h2>
+<p>查看 <a href=https://sdk.sphero.com/microbit>Sphero RVR 的官方文档</a>, 了解到 Sphero RVR 已经有 <a href=https://github.com/sphero-inc/sphero-sdk-microbit-python/blob/master/sphero.py>MicroPython 驱动</a>和 <a href=https://github.com/sphero-inc/sphero-sdk-microbit-makecode>MakeCode 驱动</a>了。</p>
+<p>于是我打算将 <a href=https://github.com/sphero-inc/sphero-sdk-microbit-python/blob/master/sphero.py>MicroPython 驱动</a> 翻译到 MicroBlocks，然后作为一个库(library) 提交给官方。</p>
+<p>阅读 <a href=https://github.com/sphero-inc/sphero-sdk-microbit-python/blob/master/sphero.py>MicroPython 驱动</a>代码，可以发现是通过 UART 来通信。我试着使用 MicroBlocks 的串口积木来实现目标。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye59bb0e5a283困境><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E5%9B%B0%E5%A2%83></a>困境</h2>
+<p>结果遇到了困难，在 MicroBlocks 对 micro:bit 编程, 使用串口积木发送的数据，和通过 USB 端口收到的数据(<a href=https://github.com/Neutree/COMTool>comtool</a>)不一致。 我<a href=https://bitbucket.org/john_maloney/smallvm/issues/235/a-problem-about-serial-write>将问题提交到了 MicroBlocks 项目 issue</a> ，得到 MicroBlocks 几位作者的热心帮助。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye783ade5bf83e5b8aee58aa9热心帮助><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E7%83%AD%E5%BF%83%E5%B8%AE%E5%8A%A9></a>热心帮助</h2>
+<p>从 @Turgut Guneysu 那儿了解到 USB 端口服务于 MicroBlocks IDE 本身的功能(<a href=https://bitbucket.org/john_maloney/smallvm/src/master/misc/SERIAL_PROTOCOL.md>协议细节</a>)。 @John Maloney 提议将 micro:bit V2 的 0/1 pin 用于 UART 引脚，然后直接用引脚接管 RVR(因为树莓派就是这样驱动 RVR 的)。</p>
+<p>我采取了 @John Maloney 的建议，顺利在 MicroBlocks 里完成了 Sphero RVR 的驱动。并提了 <a href=https://bitbucket.org/john_maloney/smallvm/pull-requests/16/add-sphero-rvr-library-complete-all>Pull Request</a>, @John Maloney 说下个 MicroBlocks 版本(Pilot release)会内置我的 RVR 驱动。</p>
+<p>意外的是，使用这种方式，比使用 UART over USB 更优！因为不需要反复插拔 USB 来调试，可以一直将板子连在电脑上，实时编程！当然，需要把 RVR 轮子垫高，不然它会跑掉：）</p>
+<p>在 MicroBlocks 的下个版本发布之前，如果你想提前使用 Sphero RVR 库，可手动下载: <a href=https://wwj718.github.io/post/img/Sphero-RVR.ubl>Sphero-RVR.ubl</a></p>
+<p>可以从这里加载自定义的代码库:</p>
+<p><a href=https://wwj718.github.io/post/img/1643008474077.jpg>
+<img src=https://wwj718.github.io/post/img/1643008474077.jpg alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye7a1ace4bbb6e8bf9ee68ea5硬件连接><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E7%A1%AC%E4%BB%B6%E8%BF%9E%E6%8E%A5></a>硬件连接</h2>
+<p>硬件连接比较简单，将控制板（我是用的是 micro:bit V2）和 RVR 的 UART 引脚连在一起即可(RX/TX交叉), 可参考以下信息</p>
+<ul>
+<li><a href=https://wiki.microblocks.fun/special_pins>special pins</a></li>
+<li><a href="https://sdk.sphero.com/docs/getting_started/before_you_start/uart_disclaimer?_ga=2.142002423.456035690.1642714022-290583108.1638474910">Extra Notes on Using RVR’s UART</a></li>
+</ul>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG166.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG166.jpeg alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarysphero-rvr-e4bba3e7a081e5ba93sphero-rvr-代码库><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#sphero-rvr-%E4%BB%A3%E7%A0%81%E5%BA%93></a>Sphero RVR 代码库</h2>
+<p>我将 Sphero RVR 驱动构建为一个 <a href=https://microblocks.zhubai.love/posts/2088166608488710144>MicroBlocks 代码库(library)</a> 。</p>
+<p>如果你之前用过 MakeCode 或 Scratch，可以把一个 「MicroBlocks 代码库」看作一个 MakeCode/Scratch 扩展(extension)。</p>
+<p>但不同在于， MicroBlocks 代码库是在 MicroBlocks 平台上构建的！不需要绕到底层去实现！这是<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/swimming-with-the-fish/>受 Smalltalk 影响产生特质</a>。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye68ea5e585a5e69bb4e5a49ae7a1ace4bbb6接入更多硬件><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E6%8E%A5%E5%85%A5%E6%9B%B4%E5%A4%9A%E7%A1%AC%E4%BB%B6></a>接入更多硬件</h3>
+<p>由于接入新硬件工作非常典型(为新的硬件写驱动库)，围绕这块我想多写几句。</p>
+<p>MicroBlocks 支持主流的硬件协议: I2C、UART、SPI 等 ，所以我们可以把海量硬件接入 MicroBlocks 中。</p>
+<p>MicroBlocks 平台还有个非常有趣的特性，大多数驱动是通用的！在无需修改任何代码的情况下，可以运行在多种硬件上！诸如我构建的 Sphero RVR 驱动，不仅可以用于 micro:bit, 也可用于任何已接入 MicroBlocks 且带有 UART 支持的板子。而大多数板子都有 UART 支持！</p>
+<p>如果你打算基于这些主流硬件协议，将更多硬件接入到 MicroBlocks，可展开<a href=https://wwj718.github.io/post/img/Sphero-RVR.ubl>Sphero-RVR.ubl</a>积木块，查看它的定义(无需进入「下层」)。这是在 MicroBlocks 深入学习的极佳方式:</p>
+<p><a href=https://wwj718.github.io/post/img/1643008303372.jpg>
+<img src=https://wwj718.github.io/post/img/1643008303372.jpg alt>
+</a></p>
+<p>以上代码翻译自 <a href=https://github.com/sphero-inc/sphero-sdk-microbit-python/blob/master/sphero.py#L25>MicroPython 驱动</a></p>
+<p>我在 MicroBlocks 里的大多数技能都是这样学会的，通过理解正在使用的功能块的原理(展开定义)来学习。在同个编程环境中，可以进入到不同的抽象层里学习！这同样源自<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/design-principles-behind-smalltalk/>Smalltalk 的理念</a>:</p>
+<blockquote>
+<p>如果一个系统要发挥创造精神，那么个体必须完全可以理解该系统。</p>
+</blockquote>
+<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye5b08fe68a80e5b7a7小技巧><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E5%B0%8F%E6%8A%80%E5%B7%A7></a>小技巧</h3>
+<p>MicroBlocks 代码的积木形式和文本形式可以精确地双向转化。所以你愿意，也可以使用代码编辑器编辑文本代码。</p>
+<p>当我想导出 <a href=https://wwj718.github.io/post/img/Sphero-RVR.ubl>Sphero-RVR.ubl</a> 时，想调整积木顺序，发现目前积木 IDE 里做不到。我是在文本代码里做的。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye6bc94e7a4ba演示><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E6%BC%94%E7%A4%BA></a>演示</h2>
+<p>我们来看看使用 Sphero RVR 代码库驱动的 demo:</p>
+<p><video width=80% src=https://adapter.codelab.club/video/1642742641707728.mp4 controls></video></p>
+<p>@John Maloney 很喜欢这个演示，把视频转给了 Micro:bit 基金会的 Katie Henry。</p>
+<blockquote>
+<p>Katie loved the video and asks if it would be okay to share it with other at the Micro:bit Foundation and Sphero team. Is that okay? She can cc you if you like. – John Maloney</p>
+</blockquote>
+<p>很开心大家喜欢这些工作 :)</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-sphero-rvr-librarye782abe88080炫耀><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/#%E7%82%AB%E8%80%80></a>炫耀</h2>
+<p>@John Maloney 是我最喜欢的计算机科学家之一。</p>
+<blockquote>
+<p>对计算机抱有跟当前领域不同的愿景, 追随 个人计算(Personal Computing) 的理想, 希望成为 Alan Kay、Daniel Ingalls、John Maloney 和 Bret Victor 的后继者 – 种瓜 <a href=https://wwj718.github.io/post/%E9%9A%8F%E7%AC%94/aboutme/>aboutme</a></p>
+</blockquote>
+<p>我跟 John 分享了我在 MicroBlocks 上做的更多项目，很开心得到他的认同。</p>
+<blockquote>
+<p>Your videos are really amazing! Are you a teacher? If so, what ages do you teach? Your blog posts are really amazing! – John Maloney</p>
+</blockquote>
+<p>也很开心 @Bernat Romagosa 喜欢「玩给你看」里的所有视频</p>
+<blockquote>
+<p>WOW! I’ve watched all of your videos and I loved them all. – Bernat Romagosa</p>
+</blockquote>
+<p>几年前设计 CodeLab Adapter 时，想法来源之一就是 @Bernat Romagosa 的 S4A 项目</p>
+<ul>
+<li><a href=http://wiki.microblocks.fun/create_a_library>How to create a library</a>
+<ul>
+<li><a href=https://microblocks.zhubai.love/posts/2088166608488710144>如何在 MicroBlocks 中创建代码库</a></li>
+</ul>
+</li>
+<li><a href=https://wiki.microblocks.fun/reference_manual/myblocks>My Blocks</a>
+<ul>
+<li><a href=https://microblocks.zhubai.love/posts/2094173059597713408>MicroBlocks 积木块使用说明 – 自定义积木</a></li>
+</ul>
+</li>
+<li><a href=https://wiki.microblocks.fun/special_pins>special pins</a></li>
+<li><a href="https://sdk.sphero.com/docs/getting_started/before_you_start/uart_disclaimer?_ga=2.142002423.456035690.1642714022-290583108.1638474910">Extra Notes on Using RVR’s UART</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/>MicroBlocks 编程案例: 创建 Sphero RVR 代码库</a></p>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/microblocks/dynablocks-sonoff-s20/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: sonoff 智能插座">&larr;
+Previous Post</a>
+</li>
+<li class=next>
+<a href=/post/microblocks/microblocks-nezha-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建哪吒扩展板库">Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>

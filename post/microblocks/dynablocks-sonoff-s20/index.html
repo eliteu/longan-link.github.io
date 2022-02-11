@@ -1,0 +1,242 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例: sonoff 智能插座">
+<meta property="og:title" content="MicroBlocks 编程案例: sonoff 智能插座">
+<meta property="twitter:title" content="MicroBlocks 编程案例: sonoff 智能插座">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例: sonoff 智能插座-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/dynablocks-sonoff-s20/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例: sonoff 智能插座</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Friday, January 14, 2022
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E5%89%8D%E8%A8%80></a>前言</h2>
+<p>市面上的许多智能设备都搭载了 ESP32 系列微控制器，由于 microblocks 支持 ESP32(esp32 devkit-v1) 和 ESP8266(NodeMCU), 想用 microblocks 来接管真实世界的设备。</p>
+<p>特别提醒: 千万不要在插座这类「强电设备」通着电的时候对其操作，否则可能对你造成伤害，也可能毁掉电脑。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e6809de8b7af思路><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E6%80%9D%E8%B7%AF></a>思路</h3>
+<p>寻思着从接管哪个设备开始。</p>
+<p>由于我对硬件拆解和分析电路板都不够熟悉，不想随便选择一个设备贸然开始，那样时间投入和结果产出都不可预期，打算在社区已有的工作上前进，这样即使遇到问题，社区里很可能已经有解决方案了。不想在硬件拆解上投入太多时间，那不是我感兴趣的。后来证明这个决策十分明智。</p>
+<p>从<a href=https://wwj718.github.io/post/%E9%9A%8F%E7%AC%94/zettelkasten-foam/>笔记系统</a>里找到 <a href=https://esphome.io/devices/sonoff_s20.html>接管 sonoff s20 智能插座的教程</a>。淘宝下单买了一个 sonoff s20 插座(几十块钱)，准备按照教程里的方法，为这插座刷入新固件，然后在 microblocks 里对其编程。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e4b8ba-sonoff-s20-e588b7e585a5e59bbae4bbb6为-sonoff-s20-刷入固件><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E4%B8%BA-sonoff-s20-%E5%88%B7%E5%85%A5%E5%9B%BA%E4%BB%B6></a>为 sonoff s20 刷入固件</h2>
+<p>拆开到货的 sonoff s20 智能插座，发现与教程里的电路布局并不一样。</p>
+<p>这是教程里国外的版本:</p>
+<p><a href=https://wwj718.github.io/post/img/sonoff_s20_pcb-esphome.jpeg>
+<img src=https://wwj718.github.io/post/img/sonoff_s20_pcb-esphome.jpeg alt>
+</a></p>
+<p>这是我从淘宝买到的国内版本:</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG5506.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG5506.jpeg alt>
+</a></p>
+<p>一番 Google，了解到不同国家卖的 sonoff 智能插座, 电路板布局有所不同。按照教程里的引脚布局，无法刷入固件。 又一番 Google，找到了我这款插座的<a href=https://www.a-netz.de/blog/2019/06/tasmota-firmware-for-sonoff-s20-wifi-switches.html>引脚说明</a>:</p>
+<p><a href=https://wwj718.github.io/post/img/tasmota_socket.jpeg>
+<img src=https://wwj718.github.io/post/img/tasmota_socket.jpeg alt>
+</a></p>
+<p>@weibin 帮我焊了一个与上图类似的 90 度折角的针脚。</p>
+<p>按上图的引脚布局，使用 USB-UART 桥接器(必须兼容 3.3V。否则你会毁掉你的 S20!)将插座连到电脑。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG139.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG139.jpeg alt>
+</a></p>
+<p>往 usb 口插入了 USB-UART 桥接器, 电脑里就可以看到 port 了(这不意味着接线的正确性)。</p>
+<p>我打算先 <code>erase_flash</code> 它:</p>
+<p><code>esptool.py --chip esp32s2 --port /dev/tty.usbserial-14320 erase_flash</code></p>
+<p>始终处于连接中，一开始以为是接线的问题，交换了 tx/rx，依然没解决问题。想起之前刷 esp32 板子时，也遇到类似的问题，需要按 boot 键，但我在 sonoff 智能插座电路板上没找到 boot 按键，唯一的一个功能键按了无效。</p>
+<p>一时毫无头绪，@junnan 说如果能看到微控制器的引脚，使用万用表测试下应该能搞清楚问题，但电路板的微控制器在看不到的一面，已经被固定死了。</p>
+<p>翻了几个文档，都没提 esptool.py 如何连接上板子。 我猜测通过观看视频应该能找到文档里缺失的操作细节，毕竟操作者的行为里， 必须包含所有信息，不然不会成功。于是继续去开源社区里答案。果然，这个问题确实被解决了，有个用户在使用开源项目 Tasmota 接管 sonoff 智能插座时，录了一个视频，通过看视频里的操作，我弄懂了操作方法:<a href="https://www.youtube.com/watch?v=5k_35ppDPho">Flashing the Sonoff S20 WiFi Smart Plug with open source Tasmota firmware</a>（8 分 10 秒），使用 esptool.py 刷东西之前，需要先拔下 vcc 线(其余 3 根线连着)，然后按住电路板上的按钮，插入 vcc 线之后，再松开按钮。</p>
+<p>一试之下果然奏效(@junnan 猜测这等效于 boot 按键):</p>
+<p><code>esptool.py --chip esp8266 --port /dev/tty.usbserial-14320 erase_flash</code></p>
+<p>按照同样的操作，往智能插座里刷入<a href=https://wwj718.github.io/post/img/vm_nodemcu.bin>vm_nodemcu.bin 固件</a></p>
+<p><code>esptool.py --chip esp8266 --port /dev/tty.usbserial-14320 write_flash -fs 1MB -fm dout 0x00000 ~/Downloads/vm_nodemcu.bin</code></p>
+<p>esptool.py 提示 sonoff s20 使用的微控制器是 esp8266EX。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e4bdbfe794a8-microblocks-e7bc96e7a88b使用-microblocks-编程><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E4%BD%BF%E7%94%A8-microblocks-%E7%BC%96%E7%A8%8B></a>使用 microblocks 编程</h3>
+<p>我没有使用 microblocks 网页刷入固件，因为也会遇到一样的连接问题（需要 boot）。为了排除问题, 选择使用 esptool.py，因为开源社区有好几个项目已经用它完成了固件刷入。</p>
+<p>固件刷入后，microblocks 顺利连接插座!</p>
+<p>如何弄懂不同功能对应的引脚呢？</p>
+<p>读文档当然是很好的方法，但很多东西是没有文档的，就像这个物理世界没有使用文档一样。信奉建构主义的个人计算社区会告述你: 动手尝试它！</p>
+<p>“要了解这个世界，你必须建造它。”——Pavese</p>
+<p>这是 John Maloney(曾是 smalltalk 团队成员) 喜欢的编程风格: <a href=https://wiki.microblocks.fun/boards/ESP32>寻找哪个引脚对应 user LED</a></p>
+<p><a href=https://wwj718.github.io/post/img/1642050248181.jpg>
+<img src=https://wwj718.github.io/post/img/1642050248181.jpg alt>
+</a></p>
+<p><video width=80% src=https://adapter.codelab.club/video/1641984170207628.mp4 controls></video></p>
+<p>现场凑近的话，可以听到继电器的滴答声。我们已经接管了智能插座的核心元件: 继电器。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e5908ee8aeb0后记><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E5%90%8E%E8%AE%B0></a>后记</h2>
+<p>虽然在线编程没有问题(webthings 之类的库都能正常工作)。 但离线时，程序并未运行，猜测是持久化部分出的问题, 诸如板子上有写保护机制，又或者自动重置之类的东西。</p>
+<p>由于整个硬件并未开放，这上头投入过多的时间并不值得，我不打算解决这个问题。</p>
+<p>本文的兴趣更多是探索 microblocks 的可能性。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-sonoff-s20e58f82e88083参考><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/#%E5%8F%82%E8%80%83></a>参考</h2>
+<ul>
+<li><a href=https://esphome.io/devices/sonoff_s20.html>esphome sonoff_s20</a></li>
+<li><a href=https://tasmota.github.io/docs/devices/Sonoff-S20/#serial-connection>tasmota Sonoff-S20 serial-connection</a></li>
+<li><a href=https://www.a-netz.de/blog/2019/06/tasmota-firmware-for-sonoff-s20-wifi-switches.html>TASMOTA FIRMWARE FOR SONOFF S20 WIFI SWITCHES</a></li>
+<li><a href="https://www.youtube.com/watch?v=5k_35ppDPho">Flashing the Sonoff S20 WiFi Smart Plug with open source Tasmota firmware</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-sonoff-s20/>MicroBlocks 编程案例: sonoff 智能插座</a></p>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/microblocks/dynablocks-esp32-website/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 在 ESP32 里运行网站">&larr;
+Previous Post</a>
+</li>
+<li class=next>
+<a href=/post/microblocks/microblocks-sphero-rvr-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建 Sphero RVR 代码库">Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>

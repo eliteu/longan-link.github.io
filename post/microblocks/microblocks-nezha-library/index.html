@@ -1,0 +1,260 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例: 创建哪吒扩展板库">
+<meta property="og:title" content="MicroBlocks 编程案例: 创建哪吒扩展板库">
+<meta property="twitter:title" content="MicroBlocks 编程案例: 创建哪吒扩展板库">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例: 创建哪吒扩展板库-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/microblocks-nezha-library/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例: 创建哪吒扩展板库</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Tuesday, January 25, 2022
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<p><a href=https://www.elecfreaks.com/learn-cn/_images/03444_01.png>
+<img src=https://www.elecfreaks.com/learn-cn/_images/03444_01.png alt>
+</a></p>
+<blockquote>
+<p>你无法用制造问题的思路解决问题</p>
+</blockquote>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarye5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#%E5%89%8D%E8%A8%80></a>前言</h2>
+<p>英荔和恩孚联合举办的火星资源挑战赛，去年(月球资源挑战赛)全国有数百支队伍参加，赛事使用了<a href=https://www.elecfreaks.com/learn-cn/microbitExtensionModule/Nezha.html><strong>哪吒扩展板</strong></a>来驱动小车， @Leeyve 和 @Jackson 希望基于 MicroBlocks 平台来开展赛事(替代 MakeCode 平台)。于是我这两天试着在 MicroBlocks 里接管哪吒扩展板以及小车使用到的其他传感器/执行器。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarye6809de8b7af思路><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#%E6%80%9D%E8%B7%AF></a>思路</h2>
+<p>哪吒扩展板来自恩孚公司, 恩孚的产品在海外很受欢迎(MicroBlocks 官方的例子有些就用了恩孚的扩展板)。我喜欢恩孚这家公司的开放作风，他们的<a href=http://www.elecfreaks.com/learn-cn/>产品文档</a>开放又出色。之前我们在 CodeLab 有一些新的脑洞，恩孚的 CPO @song兄 都非常乐意提供支持。</p>
+<p>哪吒扩展板相关的驱动代码，都在 Github 上: <a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/nezha.py>PlanetX_MicroPython/nezha.py</a></p>
+<p>我打算将这些代码翻译到 MicroBlcoks，和<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-sphero-rvr-library/>MicroBlocks 编程案例: 创建 Sphero RVR 代码库</a>的思路一样。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarye59bb0e5a283困境><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#%E5%9B%B0%E5%A2%83></a>困境</h2>
+<p>结果遇到了困难。</p>
+<p>比赛小车驱动的设备，基本都采用 I2C 通信。当前工作的实质是变着花样摆弄 I2C。将电机和舵机接入 MicroBlcoks 相当简单，翻译<a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/nezha.py>这部分 MicroPython 代码</a>即可，只用了一会儿功夫, 第一次运行就成功了！</p>
+<p><a href=https://wwj718.github.io/post/img/1643103244669.jpg>
+<img src=https://wwj718.github.io/post/img/1643103244669.jpg alt>
+</a></p>
+<p><video width=80% src=https://adapter.codelab.club/video/1643013747408674.mp4 controls></video>
+<video width=80% src=https://adapter.codelab.club/video/1643014813058195.mp4 controls></video></p>
+<p>但接入颜色传感器花了我好几个小时！</p>
+<p><a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/color.py>颜色传感器 MicroPython 驱动</a> 比较复杂，但也只是摆弄 I2C 而已，但与电机/舵机这类执行器不同，颜色传感器需要从 I2C 地址获取数据（不只是写入数据）。</p>
+<p>驱动的代码量很大:</p>
+<p><a href=https://wwj718.github.io/post/img/1643103996047.jpg>
+<img src=https://wwj718.github.io/post/img/1643103996047.jpg alt>
+</a></p>
+<p>代码始终没有按照预期运行。我猜测错误的最大可能是大量 16 进制数造成的（诸如粗心导致的输入错误之类的），反复检查了 5-10 遍代码，始终没找到这方面的任何错误。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarymicroblocks-e5b9b3e58fb0e68f90e4be9be79a84e5bcbae5a4a7e694afe68c81microblocks-平台提供的强大支持><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#microblocks-%E5%B9%B3%E5%8F%B0%E6%8F%90%E4%BE%9B%E7%9A%84%E5%BC%BA%E5%A4%A7%E6%94%AF%E6%8C%81></a>MicroBlocks 平台提供的强大支持</h2>
+<p>一筹莫展之下，我想了个主意，先缩小错误的范围，不想每次都检查一大堆的代码。 策略是对比 <a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/color.py>颜色传感器 MicroPython 驱动</a> 和 MicroBlocks 的代码中间结果的差别，定位出最早的异常。</p>
+<p>很快我将异常定位到了 <code>_i2cread_color</code>:</p>
+<p><a href=https://wwj718.github.io/post/img/1643104919512.jpg>
+<img src=https://wwj718.github.io/post/img/1643104919512.jpg alt>
+</a></p>
+<p>虽然定位到了错误区域，始终看不出哪儿出了问题。</p>
+<blockquote>
+<p>你无法用于制造问题的思路解决问题。</p>
+</blockquote>
+<p>我试着直接操控 register， 也没有搞定(我是 I2C 新手)。</p>
+<p>无奈之下，我放弃了自己折腾。 准备看看 MicroBlocks 其他使用 I2C 的驱动是怎么写的。</p>
+<p>我找到了一个其他型号的颜色传感器: <code>TCS34725</code></p>
+<p><a href=https://wwj718.github.io/post/img/1643105327627.jpg>
+<img src=https://wwj718.github.io/post/img/1643105327627.jpg alt>
+</a></p>
+<p>MicroBlocks 平台强大的功能之一是允许用户深入到积木底下: 展开定义！通过不停地展开定义，我不断进入到更深层的地方。我终于弄懂了原因！</p>
+<p><a href=https://wwj718.github.io/post/img/1643106027617.jpg>
+<img src=https://wwj718.github.io/post/img/1643106027617.jpg alt>
+</a></p>
+<p>于是我修复了代码。</p>
+<p><a href=https://wwj718.github.io/post/img/1643104802020.jpg>
+<img src=https://wwj718.github.io/post/img/1643104802020.jpg alt>
+</a></p>
+<p>若不是 MicroBlocks 平台提供的强大支持，我不知要多久才能解决这个问题，或者根本解决不了。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarye6bc94e7a4ba演示><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#%E6%BC%94%E7%A4%BA></a>演示</h2>
+<p>我们来看看使用 nezha 代码库驱动的 demo:</p>
+<p><video width=80% src=https://adapter.codelab.club/video/1643103240854776.mp4 controls></video></p>
+<p>nezha 代码库还未完成，完成后我会提交到官方。有一些比赛会使用的设备没有接入，诸如 AI 摄像头和 4 路灰度传感器，但它们都采用 I2C 通信，复杂度也不如颜色传感器，问题应该不大。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-nezha-librarye5b09de9b29c尝鲜><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/#%E5%B0%9D%E9%B2%9C></a>尝鲜</h2>
+<p>愿意尝鲜的同学可以下载使用它: <a href=https://wwj718.github.io/post/img/nezha.ubl>nezha.ubl</a></p>
+<p>可以从这里加载自定义的代码库:</p>
+<h2 id=httpswwj718githubiopostimg1643008474077jpghttpswwj718githubiopostimg1643008474077jpg-参考><a href=https://wwj718.github.io/post/img/1643008474077.jpg>
+<img src=https://wwj718.github.io/post/img/1643008474077.jpg alt>
+</a> 参考</h2>
+<ul>
+<li><a href=http://wiki.microblocks.fun/create_a_library>How to create a library</a>
+<ul>
+<li><a href=https://microblocks.zhubai.love/posts/2088166608488710144>如何在 MicroBlocks 中创建代码库</a></li>
+</ul>
+</li>
+<li><a href=https://wiki.microblocks.fun/reference_manual/myblocks>My Blocks</a>
+<ul>
+<li><a href=https://microblocks.zhubai.love/posts/2094173059597713408>MicroBlocks 积木块使用说明 – 自定义积木</a></li>
+</ul>
+</li>
+<li><a href=https://www.elecfreaks.com/learn-cn/microbitExtensionModule/Nezha.html>哪吒扩展板</a></li>
+<li><a href=https://www.elecfreaks.com/learn-cn/microbitExtensionModule/Nezha.html>哪吒扩展板</a></li>
+<li><a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/nezha.py>PlanetX_MicroPython/nezha.py</a></li>
+<li><a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/color.py>PlanetX_MicroPython/color.py</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/>MicroBlocks 编程案例: 创建哪吒扩展板库</a></p>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/microblocks/microblocks-sphero-rvr-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建 Sphero RVR 代码库">&larr;
+Previous Post</a>
+</li>
+<li class=next>
+<a href=/post/microblocks/microblocks-ailens-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建 AI 摄像头库">Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>
