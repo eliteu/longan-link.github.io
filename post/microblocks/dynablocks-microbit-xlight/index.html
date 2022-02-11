@@ -1,0 +1,335 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="MicroBlocks 编程案例 使用 micro:bit 接管 xlight">
+<meta property="og:title" content="MicroBlocks 编程案例 使用 micro:bit 接管 xlight">
+<meta property="twitter:title" content="MicroBlocks 编程案例 使用 micro:bit 接管 xlight">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>MicroBlocks 编程案例 使用 micro:bit 接管 xlight-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/microblocks/dynablocks-microbit-xlight/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/microblocks title=MicroBlocks>
+MicroBlocks
+</a>
+</div>
+<h1>MicroBlocks 编程案例 使用 micro:bit 接管 xlight</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Thursday, December 9, 2021
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlightxlightxlight><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#xlight></a>xlight</h2>
+<p>@leeyve 前些时候买到 MakeBlock 众筹的项目: <a href=https://store.makeblock.com/pages/xlight>xlight</a></p>
+<p><a href=https://wwj718.github.io/post/img/xlight.png>
+<img src=https://wwj718.github.io/post/img/xlight.png alt>
+</a></p>
+<p>彩虹灯很好看，小巧而明媚。 但我不想用它的控制盒和编程软件。 不爱用图形化编程领域的大多数软件/硬件。 也许只有 scratch 是例外(硬件的话，micro:bit、树莓派很棒)。大多图形化系统，不是太愚蠢，就是自由度太低，通常，两者兼而有之。</p>
+<p>于是我寻思着如何绕开 xlight 的软件和硬件，接管这个彩虹灯。 就像之前接管洛克人的手持装置(@leeyve 从日本带来的）:</p>
+<p><video width=80% src=https://adapter.codelab.club/video/60022ae5a5b37699168141b8c3ef2b.mp4 controls></video></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighthack-ithack-it><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#hack-it></a>Hack it!</h3>
+<blockquote>
+<p>对计算机的访问（以及任何可能帮助你认识我们这个世界的事物）应该是不受限制的、完全的。任何人都有动手尝试的权利！ 黑客们相信，通过将东西拆开，了解它们的工作原理，并根据这种理解创造新奇的甚至更有趣的东西，可以学习到关于系统（关于世界）的重要知识。他们痛恨一切试图阻止他们这么做的人、物理障碍或者法律。 – 《黑客: 计算机革命的英雄》</p>
+</blockquote>
+<p>黑客精神并不总是与破坏、入侵有关，在它诞生之初，更多是一种对系统的好奇，对事物的运行机制的好奇。</p>
+<p>我对 xlight 感到好奇，对其虚构出的明媚彩虹 🌈 感到喜悦和好奇。 这好奇和一个六岁孩子面对滴答作响的时钟 ⏰ 的好奇是一样的，它曾经导致我对着散落一屋的零件流泪，现在导致我对这彩虹灯有足够的理解。</p>
+<p>当你理解一个东西的时候，你差不多就能 hack 它，进而接管它(如果你乐意的话)，正如大多数黑客所做的那样。</p>
+<p>简单观察之后，我猜测 xlight 的灯座里的可编程灯珠是 ws281x。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG79.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG79.jpeg alt>
+</a></p>
+<p>如果确实如此，使用 micro:bit 就可以轻松接管。</p>
+<p>我使用 microblocks 做了个实验，果真如此。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG82.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG82.jpeg alt>
+</a></p>
+<blockquote>
+<p>You just do it and it’s done. – Daniel Ingalls 《The Evolution of Smalltalk》</p>
+</blockquote>
+<p>简而言之，我把 xlight(不包括编程板) 接到 micro:bit 上，打开 microblocks 进行编程，顺利接管。进而可以在 <a href=https://create.codelab.club/>CodeLab Scratch</a> 上对 xlight 进行实时编程，使用到了 CodeLab Adapter 的 micro:bit radio 插件。</p>
+<p>以下是一些简单的实验代码。我用杜邦线将 xlight 接到 micro:bit 1 号引脚(扩展版选用了<a href=https://learn-cn.readthedocs.io/en/latest/>恩孚</a>的，恩孚目前是<a href=https://aimaker.space/>英荔</a>的合作伙伴)。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG78.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG78.jpeg alt>
+</a></p>
+<p>在 microblocks 积木库里打开 NeoPixel 插件库:</p>
+<p><a href=https://wwj718.github.io/post/img/01a0adfaff24864b17323376bbe66b43.png>
+<img src=https://wwj718.github.io/post/img/01a0adfaff24864b17323376bbe66b43.png alt>
+</a></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlightjohn-maloneyjohn-maloney><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#john-maloney></a>John Maloney</h3>
+<blockquote>
+<p>如果一个系统对于孩子来说是好的，那么对专业人士通常也是好的。 – Alan Kay</p>
+</blockquote>
+<p>MicroBlocks 是 <a href=https://harc.ycr.org/member/john_maloney/>John Maloney</a> 最新的项目。John Maloney 是<a href=https://wwj718.github.io/post/%E9%9A%8F%E7%AC%94/aboutme/>我最喜欢的计算机科学家之一</a>。</p>
+<p>他是 <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/software-art-engineering-mathematics-or-science/>Alan Kay 意义上的科学家</a>，而不是我们今天使用这个词所指的。</p>
+<p><a href=https://gpblocks.org/images/gallery/Warhol.png>
+<img src=https://gpblocks.org/images/gallery/Warhol.png alt>
+</a></p>
+<blockquote>
+<p>牛顿说他站在巨人的肩膀上看得更远，而计算机科学家却经常站在对方的脚趾上。 – Alan Kay 《The Early History Of Smalltalk》</p>
+</blockquote>
+<p>John Maloney 之前是 Scratch 的首席架构师，对图形/实时交互式编程系统有深入思考，或许是这个领域最出色的思考者之一， 他过去的工作包括:</p>
+<ul>
+<li>morphic</li>
+<li>etoys</li>
+<li>Scratch</li>
+<li>GPblocks</li>
+</ul>
+<p>MicroBlocks 基于 GPblocks，完全在图形化环境里构建，GPblocks 是<a href=https://en.wikipedia.org/wiki/Bootstrapping_(compilers)>自举</a>的图形化编程语言！在图形化环境里实现了自己的编译器！</p>
+<p>John Maloney 目前的精力都在 MicroBlocks，他说之后可能会重新回到 GPblocks。</p>
+<p>如果你认真看看 John Maloney 的工作，简直要怀疑目前整个领域在瞎搞什么玩意儿(这里包括微软的 MakeCode 和 Google 的 Blockly)。这些项目既没有新的想法，对过去的好想法也是一无所知，结果就是一些乱七八糟的随意拼凑。</p>
+<p>今天的编程入门通常与图形化有关，考虑到这个领域的设施是如此之差(主流领域可能只有 Scratch 是例外)。 以至于我们要怀疑孩子们究竟在学些什么东西，我想今天所谓的编程学习，主要是在努力掌握工程师/产品经理们的糟糕想法。这些想法内化在他们的软件平台里、内化学习材料里、内化在考试题目上。</p>
+<p>按 Alan Kay 的说法，软件工程领域忙着生产 ‘一次性塑料垃圾’。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlightwhy-microblockswhy-microblocks><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#why-microblocks></a>why Microblocks?</h3>
+<blockquote>
+<p>现代的编程就如同闭着眼睛去排列符号一样 – Bret Victor</p>
+<p>在编译和运行一个程序之前，我完全看不到程序会输出一个怎样的结果，我需要在脑内想象并且根据我所想象的图像去修改程序。为了得出我想要的输出我需要一直不停地修改、编译和运行, 反反复复。而且有些时候，当我完全不明白程序为什么没有像我所期望的那样去运行的时候，我就要逐行检查, 使用各种 debug 技巧。 – David Luo</p>
+</blockquote>
+<p>扔掉 <a href=https://makecode.microbit.org/>MakeCode</a> 之类的东西, 别再闭着眼睛排列积木了。睁开双眼，在 Microblocks 里以可理解的方式实时编程吧！</p>
+<p>可悲的是，MakeCode 已经是目前与硬件有关的图形化编程工具里最好的了。</p>
+<p>我在<a href=https://wwj718.github.io/post/%E5%B0%91%E5%84%BF%E7%BC%96%E7%A8%8B/hardware-programming-style/>两种硬件编程风格的比较</a>提到两种典型的风格:</p>
+<ul>
+<li>灌入式</li>
+<li>交互式</li>
+</ul>
+<p>这两者差异很明显，各自的优点也很明显，所以目前主流领域，两个阵营都有很多拥趸。</p>
+<p>John Maloney 的壮举之一是， 在 MicroBlocks 里统一了两者！让交互式的 <strong>可理解性</strong> 和离线的 <strong>实时性</strong> 可以兼得！这是整个领域梦寐以求的特性。 MicroBlocks 通过沿用 Smalltalk 的架构风格实现这一壮举。</p>
+<p>MicroBlocks 的另一壮举是为用户提供了一个高度易用和 <strong>自由</strong> 的环境，MicroBlocks 是自支持和可生长的，这是个人计算社区一直以来追求的特质(CodeLab Adapter 也努力追求这一特质)， 在这样的环境中，终端用户拥有高度自由，能够以一致的方式思考系统的各个层次，进而深入理解系统并进行自由创造。 如果你对这种对创造友好的系统感兴趣，可参考<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/design-principles-behind-smalltalk/>Smalltalk 背后的设计原则</a></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighthello-microblockshello-microblocks><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#hello-microblocks></a>hello Microblocks</h3>
+<p>在 Microblocks 中对 micro:bit 编程是非常简易的，就像使用 Scratch 一样简易直观(因为都是 John Maloney 的设计)。</p>
+<p>你只需要:</p>
+<p>1 使用 Chrome/Edge 浏览器打开 <a href=https://microblocks.fun/>Microblocks</a> 2 为 micro:bit 刷入固件，也可以下载<a href=https://adapter.codelab.club/hex/dynablocks-microbit.hex>固件</a>，手动拖到 micro:bit 里</p>
+<p><a href=https://wwj718.github.io/post/img/a14605254b94e39613ed35ed01cbb679.png>
+<img src=https://wwj718.github.io/post/img/a14605254b94e39613ed35ed01cbb679.png alt>
+</a></p>
+<p>3 连接 micro:bit</p>
+<p><a href=https://wwj718.github.io/post/img/54ab4086970464ca47b68901b8550f42.png>
+<img src=https://wwj718.github.io/post/img/54ab4086970464ca47b68901b8550f42.png alt>
+</a></p>
+<p>4 开始编程！</p>
+<p>乍看起来和 makecode 区别不大，而且 makecode 的界面好像还要更好看些(我怀疑 makecode 的大多数精力都集中在这些微创新上)，一旦你完成 hello world 阶段，开始构建真实的项目，就会发现它们的天壤之别。</p>
+<p>如果你有过 Scratch 的经验，你对于系统的 ‘活性’ 会有很高期待，你不再乐意闭着眼睛排列东西了，你期待系统给你的实时反馈，这些反馈支持或反对你脑子里的假设(就像物理学家期待在实验中获得物理世界的反馈，以<a href=https://wwj718.github.io/post/%E8%AF%BB%E4%B9%A6/the-structure-of-scientific-revolutions/>校准观点</a>)，如此一来，与系统的每次实时交互。都让你理解系统那些不可见的部分。 microblocks 在硬件编程领域完全提供了和 Scratch 一样的体验，你甚至可以使用消息！它还默认支持多任务！</p>
+<blockquote>
+<p>The challenge is not buiding it, but understanding it – Bret Victor 《Seeing Spaces》</p>
+<p>We make, not just to have, but to know – Alan Kay 《The Early History Of Smalltalk》</p>
+</blockquote>
+<p>由于系统的’活性’， 在 microblocks 里，对探索式编程提供了绝佳支持，’理解’发生在探索的过程中，而不是理解以后再去编程，这是一种帮助你理解事物的系统，而不只是做出某个东西的系统。</p>
+<p>换句话说，它是支持「建构主义」的系统。</p>
+<p>编程应该成为理解事物的方式，正如写作是一种理解事物的方式。动态媒介(计算机)最强大的潜力之一在于，对过程中的思考提供强大支持，甚至超越写作(基于静态媒介)所能提供的支持。目前仅有个人计算社区展示了计算机的这种潜力。</p>
+<p>我前几天在 microblocks 里玩 micro:bit 的一个下午，比我过去学到的任何关于 micro:bit 的东西都多。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte68ea5e585a5-scratch接入-scratch><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E6%8E%A5%E5%85%A5-scratch></a>接入 Scratch</h2>
+<p>以下是我把 xlight 接管到 CodeLab Scratch 之后，做的一个演示视频。</p>
+<p><video width=80% src=https://adapter.codelab.club/video/debfcc908a12e725f314ff360a03a8.mp4 controls></video></p>
+<p>思路是这样的: 在 microblocks 里为 micro:bit 写一个固件，这个固件让 micro:bit 响应来自外部的 radio 消息，并解释这些消息(Smalltalk风味)。Scratch 通过另一块 micro:bit 使用 radio 给前边的 micro:bit 发送消息。 对 xlight 的控制语义编码在 radio 消息里。</p>
+<p>对的，这正是 CodeLab Adapter 的 micro:bit radio 插件的工作原理。 <a href=https://adapter.codelab.club/extension_guide/microbit_radio/>插件文档</a>有详细说明，过去我们使用 makecode 构建固件(功能板)，现在我们用 microblocks 替代它，所有东西都兼容(中转站(天线)无需任何修改)！因为消息是松耦合的！这是可生长系统的一个例子。可生长的系统能够轻松接入来自未来的新事物，尽管它自己是在过去构建的。</p>
+<p>以下是固件代码(当代码达到一定复杂度时，microblocks 的优势就越发明显，因为它提供了强大的抽象构件和交互式支持，编程十分愉快):</p>
+<p><a href=https://wwj718.github.io/post/img/60a22ab7bb10756e2cf2ac2dff9aa280.png>
+<img src=https://wwj718.github.io/post/img/60a22ab7bb10756e2cf2ac2dff9aa280.png alt>
+</a></p>
+<p>你也可以自行下载使用: <a href=https://wwj718.github.io/post/img/xlight-node.ubp>xlight-node.ubp</a>。 下载之后，可以在 microblocks 里打开程序:</p>
+<p><a href=https://wwj718.github.io/post/img/607d34a7368e4305459c25d374a2a1e4.png>
+<img src=https://wwj718.github.io/post/img/607d34a7368e4305459c25d374a2a1e4.png alt>
+</a></p>
+<p>Scratch 中的 <a href=https://create.codelab.club/projects/19697/editor/>demo 链接</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte99984e5bd95附录><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E9%99%84%E5%BD%95></a>附录</h2>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte59ca8-microblocks-e9878ce697a0e6b395e8bf9ee68ea5-micro-bit在-microblocks-里无法连接-microbit><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E5%9C%A8-microblocks-%E9%87%8C%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5-micro-bit></a>在 microblocks 里无法连接 micro:bit？</h3>
+<p>重新插拔 micro:bit</p>
+<p>确保只有当前一个 microblocks 页面，关掉可能占用串口的页面: microblocks、MakeCode</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlightmicroblocks-e4b88e-scratch-micro-bit-radio-e9809ae4bfa1e79a84e59fbae7a180e6a8a1e78988microblocks-与-scratchmicrobit-radio-通信的基础模版><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#microblocks-%E4%B8%8E-scratch-micro-bit-radio-%E9%80%9A%E4%BF%A1%E7%9A%84%E5%9F%BA%E7%A1%80%E6%A8%A1%E7%89%88></a>microblocks 与 Scratch(micro:bit radio) 通信的基础模版</h3>
+<p><a href=https://wwj718.github.io/post/img/f1f36ea55522f64b35e1f7671fc3d7f2.png>
+<img src=https://wwj718.github.io/post/img/f1f36ea55522f64b35e1f7671fc3d7f2.png alt>
+</a></p>
+<p><a href=https://wwj718.github.io/post/img/node-template.ubp>xlight-node.ubp</a></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlightgpblocks-e79a84e69687e69cace5bda2e5bc8fgpblocks-的文本形式><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#gpblocks-%E7%9A%84%E6%96%87%E6%9C%AC%E5%BD%A2%E5%BC%8F></a>GPblocks 的文本形式</h3>
+<p>GPblocks 的文本形式与图形形式是等价的。</p>
+<p>GPblocks 的文本代码类似 Smalltalk72， Smalltalk72 参考了 Logo ，而 Logo 来自 LISP。</p>
+<p>GPblocks 惊人的可组合性和实现之简单，很大程度与 LISP 的表现力有关。</p>
+<p>以下是 microblocks 的编译器代码片段：</p>
+<p><a href=https://wwj718.github.io/post/img/ed26faaebf76122e6704f779e8137c23.png>
+<img src=https://wwj718.github.io/post/img/ed26faaebf76122e6704f779e8137c23.png alt>
+</a></p>
+<p>LISP 风味十足！</p>
+<p>使用 <code>to</code> 定义函数的风格的语法则来自 Smalltalk72</p>
+<p><a href=https://wwj718.github.io/post/img/91053287b86d47e304a4d0c68b38c3fd.png>
+<img src=https://wwj718.github.io/post/img/91053287b86d47e304a4d0c68b38c3fd.png alt>
+</a></p>
+<p>Smalltalk72 是从 Logo 里学来的语法。这种定义语法与英语中的动词定义类似: <code>to speed is to drive fast</code>。这是 Logo 为可理解性做的努力(符合直觉)，也是个人计算社区一贯的做法。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte88bb1e88d94e6af94e789b9英荔比特><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E8%8B%B1%E8%8D%94%E6%AF%94%E7%89%B9></a>英荔比特</h3>
+<p>英荔比特里的所有设备在 microblocks 里应该都可用，其中的大多数我都做了测试。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte585a5e997a8e4b88ee6b7b1e585a5入门与深入><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E5%85%A5%E9%97%A8%E4%B8%8E%E6%B7%B1%E5%85%A5></a>入门与深入</h3>
+<p><a href=https://microblocks.fun/>microblocks 官网</a>给出了很多好的材料:</p>
+<ul>
+<li><a href=https://microblocks.fun/get-started>get started</a></li>
+<li><a href=https://microblocks.fun/learn>learn</a></li>
+<li><a href=https://wiki.microblocks.fun/>wiki</a></li>
+</ul>
+<h2 id=httpswwj718githubioposte7bc96e7a88bdynablocks-microbit-xlighte58f82e88083参考><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/#%E5%8F%82%E8%80%83></a>参考</h2>
+<ul>
+<li><a href=https://wwj718.github.io/post/%E5%B0%91%E5%84%BF%E7%BC%96%E7%A8%8B/hardware-programming-style/>两种硬件编程风格的比较</a></li>
+<li><a href=https://www.codelab.club/blog/2021/06/28/codelab%E7%BA%AA%E4%BA%8B#%E6%89%B9%E8%AF%84%E8%BF%87%E5%88%86%E7%9C%8B%E9%87%8D%E7%A7%AF%E6%9C%A8%E7%9A%84%E8%A7%86%E8%A7%92>CodeLab 纪事#批评过分看重积木的视角</a></li>
+<li><a href=https://store.makeblock.com/pages/xlight>xlight</a></li>
+<li><a href=https://gpblocks.org/about/>gpblocks</a></li>
+<li><a href=https://harc.ycr.org/member/john_maloney/>John Maloney</a></li>
+<li><a href=https://microblocks.fun/>MicroBlocks</a></li>
+<li><a href=https://en.wikipedia.org/wiki/Bootstrapping_(compilers)>Bootstrapping</a></li>
+<li><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/software-art-engineering-mathematics-or-science/>软件: 艺术，工程，数学还是科学？</a></li>
+<li><a href=https://www-old.codelab.club/blog/codelab-adapter-microbit-deep-connect/>CodeLab Adapter 深度连接 micro:bit （makecode）生态</a></li>
+<li><a href=http://www.newmediareader.com/book_samples/nmr-26-kay.pdf>Personal Dynamic Media</a></li>
+<li><a href=http://worrydream.com/refs/Kay%20-%20Personal%20Computing.pdf>Personal Computing</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/dynablocks-microbit-xlight/>MicroBlocks 编程案例 使用 microbit 接管 xlight</a></p>
+<hr>
+<ul class=pager>
+<li class=next>
+<a href=/post/microblocks/microblocks-ailens-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建 AI 摄像头库">Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>
