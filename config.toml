@@ -3,7 +3,12 @@ languageCode = "zh-Hans"
 title = "英荔的博客"
 theme = "hugo-theme-cleanwhite"
 googleAnalytics = "UA-XXXXX-X"
-paginate = 5 
+preserveTaxonomyNames = true
+paginate = 8
+hasCJKLanguage = true
+summaryLength = 120
+enableEmoji = true
+
 
 [outputs]
 home = ["HTML", "RSS"]
@@ -33,7 +38,6 @@ home = ["HTML", "RSS"]
   # Sidebar settings
   sidebar_about_description = "我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」"
   sidebar_avatar = "img/logo.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
-  #sidebar_avatar = "img/zhaohuabing.png"      # use absolute URL, seeing it's used in both `/` and `/about/`
 
   featured_tags = true 
   featured_condition_size = 1 
