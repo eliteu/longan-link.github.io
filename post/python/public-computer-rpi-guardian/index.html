@@ -7,17 +7,17 @@
 <meta property="og:type" content="article">
 <meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
 <meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
-<meta name=title content="MicroBlocks 编程案例: 创建 AI 摄像头库">
-<meta property="og:title" content="MicroBlocks 编程案例: 创建 AI 摄像头库">
-<meta property="twitter:title" content="MicroBlocks 编程案例: 创建 AI 摄像头库">
+<meta name=title content="公共树莓派案例: 树莓派守护者!">
+<meta property="og:title" content="公共树莓派案例: 树莓派守护者!">
+<meta property="twitter:title" content="公共树莓派案例: 树莓派守护者!">
 <meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
 <meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
 <meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
 <meta property="twitter:card" content="summary">
 <meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
 <link rel="shortcut icon" href=/img/favicon.ico>
-<title>MicroBlocks 编程案例: 创建 AI 摄像头库-英荔的博客 | Elite Education's Blog</title>
-<link rel=canonical href=/post/microblocks/microblocks-ailens-library/>
+<title>公共树莓派案例: 树莓派守护者!-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/python/public-computer-rpi-guardian/>
 <link rel=stylesheet href=/css/iDisqus.min.css>
 <link rel=stylesheet href=/css/bootstrap.min.css>
 <link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
@@ -59,17 +59,17 @@
 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 <div class=post-heading>
 <div class=tags>
-<a class=tag href=/tags/microblocks title=MicroBlocks>
-MicroBlocks
+<a class=tag href=/tags/python title=python>
+python
 </a>
 </div>
-<h1>MicroBlocks 编程案例: 创建 AI 摄像头库</h1>
+<h1>公共树莓派案例: 树莓派守护者!</h1>
 <h2 class=subheading></h2>
 <span class=meta>
 Posted by
 英荔的博客
 on
-Saturday, January 29, 2022
+Thursday, September 2, 2021
 </span>
 </div>
 </div>
@@ -82,72 +82,77 @@ Saturday, January 29, 2022
 <div class="col-lg-8 col-lg-offset-2
 col-md-10 col-md-offset-1
 post-container">
-<p><a href=https://www.elecfreaks.com/learn-en/_images/05035_01.png>
-<img src=https://www.elecfreaks.com/learn-en/_images/05035_01.png alt>
+<blockquote>
+<p>在一个线下公共空间里，放置一些计算设备，参与者在这个环境里，用编程表达自己的想法，构建自己感兴趣的项目。大家的探索过程和成果都置于公共视野，想法和经验持续流动，彼此启发，就像 Scratch 线上社区。 – <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi/>《公共树莓派》</a></p>
+</blockquote>
+<p>本文是 <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi/>《公共树莓派》</a> 的第一个案例。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bpublic-computer-rpi-guardiane6a091e88e93e6b4bee5ae88e68aa4e88085树莓派守护者><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi-guardian/#%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%88%E6%8A%A4%E8%80%85></a>树莓派守护者！</h2>
+<p><a href=https://wwj718.github.io/post/img/pi_swzbe54be0b.png>
+<img src=https://wwj718.github.io/post/img/pi_swzbe54be0b.png alt>
 </a></p>
-<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%89%8D%E8%A8%80></a>前言</h2>
-<p>接<a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-nezha-library/>上文</a>, 火星资源挑战赛使用了 AI 摄像头: <a href=https://www.elecfreaks.com/learn-cn/microbitplanetX/ai/Plant_X_EF05035.html>AILens</a></p>
-<p>于是我打算将其接入 MicroBlocks。</p>
-<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye6809de8b7af思路><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E6%80%9D%E8%B7%AF></a>思路</h2>
-<p>AILens 相关的 MicroPython 驱动代码，都在 Github 上: <a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/AILens.py>PlanetX_MicroPython/AILens.py</a></p>
-<p>我试着将这些代码翻译到 MicroBlcoks，和之前的几篇文章思路一样。</p>
-<hr>
-<p>在 MicroBlocks 里的编程，十分愉快。 由于已经熟悉了对 I2C 设备编程，轻车熟路 ，完成 AILens 的驱动可能不到 1 小时。</p>
-<p><a href=https://wwj718.github.io/post/img/1643196398857.jpg>
-<img src=https://wwj718.github.io/post/img/1643196398857.jpg alt>
+<p>树莓派守护者是我在2016年做的一个项目。 那时刚玩树莓派不久。</p>
+<p><strong>树莓派守护者！</strong> 的想法是: 使用树莓派 + 超声波传感器，构建一个小偷报警器，解决我童年时候遇到的一个问题:</p>
+<blockquote>
+<p>老板说自己早便发现他们入室盗窃，为了证据确凿，设计了一套精巧的陷阱：在柜台入口，近地面处系一根绳子，绳子一直连到老板睡觉的卧室，在卧室里系上易拉罐。少年们再次登门，触发开关，弄倒老板卧室的易拉罐，老板醒后，有备而来，少年们毫无知觉，来个瓮中捉鳖. – <a href=https://wwj718.github.io/post/iot/pi-guardian/>树莓派守护者!</a></p>
+</blockquote>
+<p>我觉得这计划稍有不足:</p>
+<blockquote>
+<p>有一处不够优美:报警器竟是绳子做的！如果少年们更警觉些，看到绳子，或是踩到之后便逃离，老板恐怕要竹篮打水一场空。</p>
+</blockquote>
+<p>我想用树莓派作为解决方案:</p>
+<blockquote>
+<p>将超声波传感器（或者红外线）放在柜台下边，当有人路过时，树莓派给老板手机发送一条短信（或邮件），这个隐形的卫士几乎没有破绽</p>
+</blockquote>
+<p>后来我发现，这装置可以用来<strong>守护私密空间</strong>: 当树莓派检测到有人进入房间，给电脑发送信号，将屏幕切换到阅读状态。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bpublic-computer-rpi-guardiane59ca8e585ace585b1e6a091e88e93e6b4bee4b8ade69e84e5bbbae5ae83在公共树莓派中构建它><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi-guardian/#%E5%9C%A8%E5%85%AC%E5%85%B1%E6%A0%91%E8%8E%93%E6%B4%BE%E4%B8%AD%E6%9E%84%E5%BB%BA%E5%AE%83></a>在公共树莓派中构建它</h2>
+<p>我在<strong>公共树莓派</strong>中构建的这个项目，希望能通过这些项目分享我的经验，并希望团队成员能 remix 它，去构建自己的项目。</p>
+<p>也想借此分享我喜欢怎样使用树莓派（Linux）.</p>
+<p>整个项目在一个 notebook:<a href=https://github.com/aimaker-space/Public_RPI_PBL/blob/main/AlanRussell_Lab/distance.ipynb>distance.ipynb</a>里， 在局域网里打开树莓派的 jupyterlab 地址，就可以发现并运行这个项目，当然也可以通过 SSH/VNC 进入树莓派运行它。</p>
+<p><a href=https://wwj718.github.io/post/img/3ec09f955d4ceba7ceb7e3947cc522c4.png>
+<img src=https://wwj718.github.io/post/img/3ec09f955d4ceba7ceb7e3947cc522c4.png alt>
 </a></p>
-<p>我已经将驱动<a href=https://bitbucket.org/john_maloney/smallvm/pull-requests/19>提交给了官方</a></p>
-<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye6bc94e7a4ba演示><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E6%BC%94%E7%A4%BA></a>演示</h2>
-<p><video width=80% src=https://adapter.codelab.club/video/1643171522875763.mp4 controls></video>
-<video width=80% src=https://adapter.codelab.club/video/1643172494658270.mp4 controls></video></p>
-<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5b09de9b29c尝鲜><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%B0%9D%E9%B2%9C></a>尝鲜</h2>
-<p>愿意尝鲜的同学可以下载使用它: <a href=https://wwj718.github.io/post/img/AILens.ubl>AILens.ubl</a></p>
-<p>可以从这里加载自定义的代码库:</p>
-<p><a href=https://wwj718.github.io/post/img/1643008474077.jpg>
-<img src=https://wwj718.github.io/post/img/1643008474077.jpg alt>
-</a></p>
-<h2 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye7bc96e58699e4bba3e7a081e5ba93-library-e79a84e68a80e5b7a7编写代码库library的技巧><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E5%BA%93-library-%E7%9A%84%E6%8A%80%E5%B7%A7></a>编写代码库(library)的技巧</h2>
-<p>在 MicroBlocks 里编写代码库非常简单。</p>
-<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye5889de5a78be58c96初始化><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E5%88%9D%E5%A7%8B%E5%8C%96></a>初始化</h3>
-<p>在 MicroBlocks 里，我们只能将自定义积木导出为代码库(library)， 所以「当启动时积木」不会被到导出代码库里。</p>
-<p>这带来一个问题，一些需要初始化的代码怎么办呢？ 这类代码往往有个特征: 只需要初始化一次。类似 Python class 里的 <code>__init__</code> 函数。</p>
-<p>初始化的技巧是通用的，技巧如下:</p>
-<p><a href=https://wwj718.github.io/post/img/1643195686935.jpg>
-<img src=https://wwj718.github.io/post/img/1643195686935.jpg alt>
-</a></p>
-<p>(ps: 图中初始化代码做了简化处理)</p>
-<p><code>setup</code> 自定义积木，一般配合一个变量使用:<code>initialized</code>, 通过这个变量来记忆是否是第一次操作(一开始变量是 0)。 值得之一的是 setup 幂等函数。 这样你可以把<code>setup</code> 放到任何地方（确保其他代码运行之前先运行setup），不必担心多次掉用它。</p>
-<p>这些技巧我也是通过「显示积木定义」学来的 : )</p>
-<h3 id=httpswwj718githubioposte7bc96e7a88bmicroblocks-ailens-librarye4b88be68b89e6a186下拉框><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/#%E4%B8%8B%E6%8B%89%E6%A1%86></a>下拉框</h3>
-<p>AILens 代码库里，<code>switch mode</code> 积木使用了下拉框</p>
-<p><a href=https://wwj718.github.io/post/img/1643196398857-1.jpg>
-<img src=https://wwj718.github.io/post/img/1643196398857-1.jpg alt>
-</a></p>
-<p>目前无法在 IDE 里添加下拉框类型的输入。我是直接修改文本代码做到的（通过学习其他 library 的代码）。</p>
-<p>但我不喜欢在文本里编程，我的做法是，在 MicroBlocks图形环境里，大体完成自定义积木后</p>
-<p><a href=https://wwj718.github.io/post/img/1643255190150.jpg>
-<img src=https://wwj718.github.io/post/img/1643255190150.jpg alt>
-</a></p>
-<p>再在文本环境里微调:</p>
-<p><a href=https://wwj718.github.io/post/img/1643255276038.jpg>
-<img src=https://wwj718.github.io/post/img/1643255276038.jpg alt>
-</a></p>
-<p>（与 Scratch 插件里的做法类似）</p>
-<p>相信未来图形IDE里就会添加这个支持。</p>
-<h3 id=参考>参考</h3>
+<p>项目的开头使用 markdown 对项目做了基本描述：从想法的来源到使用到的核心库。</p>
+<p>今早，我给团队成员分享我的这个项目，演示完抓小偷的功能，我邀请大家进入 jupyterlab 里与我结对编程，通过修改 notify 函数，将通知推送给自己。</p>
+<p>接下来演示了如何使用 git 管理这个项目，以及如何将 jupyterlab 当作主要的编程环境： 文件上传与管理以及系统管理(terminal)都可以在 jupyterlab 里完成。</p>
+<p>分享结束之后大家各自都有想实现的新想法，并希望我给出进一步学习 Git/Linux 的新资料，我把它们放在了<a href=https://github.com/aimaker-space/Public_RPI_PBL#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99>这里</a>。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bpublic-computer-rpi-guardiane5b08fe7bb93小结><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi-guardian/#%E5%B0%8F%E7%BB%93></a>小结</h2>
+<p>项目中的好几个部分是通用的:</p>
 <ul>
-<li><a href=https://github.com/lionyhw/PlanetX_MicroPython/blob/master/AILens.py>PlanetX_MicroPython/AILens.py</a></li>
+<li>展示树莓派社区最好的<a href=https://gpiozero.readthedocs.io/>GPIO驱动</a>的用法，用于与各类传感器交互</li>
+<li>展示如何推送通知（展示了2种方式），这在大多数项目中都很有用</li>
+<li>展示如何在 jupyterlab 中使用 terminal
+<ul>
+<li>在terminal里使用 ngrok 将 jupyterlab 投射到公网</li>
+</ul>
+</li>
+<li>分享到 Github: <a href=https://github.com/aimaker-space/Public_RPI_PBL>Public_RPI_PBL</a>
+<ul>
+<li>使用 Git 做版本管理</li>
+<li>使用项目wiki写博客</li>
+</ul>
+</li>
+<li>讨论了开机自启的思路（暂未实现）</li>
+</ul>
+<p>大家的热情是超出我的预期的，几乎每个人都觉着过去这些令人生畏的东西非常有意思。</p>
+<p>我们希望这个<strong>公共计算空间</strong>随着时间的演进，会持续产生新项目新想法，彼此启发与混合。</p>
+<p>就像你家阳台的花盆里所发生的事情。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88bpublic-computer-rpi-guardiane58f82e88083参考><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi-guardian/#%E5%8F%82%E8%80%83></a>参考</h2>
+<ul>
+<li><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi/>公共树莓派</a></li>
+<li><a href=https://wwj718.github.io/post/iot/pi-guardian/>树莓派守护者!</a></li>
+<li><a href=https://gpiozero.readthedocs.io/en/stable/recipes.html#distance-sensor>超声波传感器</a></li>
+<li><a href=https://github.com/aimaker-space/Public_RPI_PBL>Public_RPI_PBL</a></li>
 </ul>
 <hr>
-<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/microblocks-ailens-library/>MicroBlocks 编程案例: 创建 AI 摄像头库</a></p>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/public-computer-rpi-guardian/>公共树莓派案例: 树莓派守护者!</a></p>
 <hr>
 <ul class=pager>
 <li class=previous>
-<a href=/post/microblocks/microblocks-nezha-library/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: 创建哪吒扩展板库">&larr;
+<a href=/post/python/public-computer-rpi/ data-toggle=tooltip data-placement=top title=公共树莓派>&larr;
 Previous Post</a>
 </li>
 <li class=next>
-<a href=/post/microblocks/microblocks-websocket-server/ data-toggle=tooltip data-placement=top title="MicroBlocks 编程案例: WebSocket server">Next
+<a href=/post/python/ledbag/ data-toggle=tooltip data-placement=top title=可编程书包>Next
 Post &rarr;</a>
 </li>
 </ul>

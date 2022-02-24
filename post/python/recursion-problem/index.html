@@ -1,0 +1,385 @@
+<!doctype html><html lang=zh-hans>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta property="og:site_name" content="英荔的博客">
+<meta property="og:type" content="article">
+<meta property="og:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta property="twitter:image" content="http://blog.aimaker.space/img/Elite_Education_Office.png">
+<meta name=title content="递归问题">
+<meta property="og:title" content="递归问题">
+<meta property="twitter:title" content="递归问题">
+<meta name=description content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="og:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:description" content="广东英荔国际教育科技有限公司的技术博客，我们是一家提供人工智能创造力教育的公司，以「用可理解的材料打造最好玩的 AI 教学空间」为使命，愿景是「让孩子在 AI 时代独立思考、自信表达、自由创造」">
+<meta property="twitter:card" content="summary">
+<meta name=keyword content="英荔教育, Matter, CHIP, Microblocks, AI4Kid, AI4Fun">
+<link rel="shortcut icon" href=/img/favicon.ico>
+<title>递归问题-英荔的博客 | Elite Education's Blog</title>
+<link rel=canonical href=/post/python/recursion-problem/>
+<link rel=stylesheet href=/css/iDisqus.min.css>
+<link rel=stylesheet href=/css/bootstrap.min.css>
+<link rel=stylesheet href=/css/hugo-theme-cleanwhite.min.css>
+<link rel=stylesheet href=/css/zanshang.css>
+<link href=//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css rel=stylesheet type=text/css>
+<script src=/js/jquery.min.js></script>
+<script src=/js/bootstrap.min.js></script>
+<script src=/js/hux-blog.min.js></script>
+</head>
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class=container-fluid>
+<div class="navbar-header page-scroll">
+<button type=button class=navbar-toggle>
+<span class=sr-only>Toggle navigation</span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+<span class=icon-bar></span>
+</button>
+<a class=navbar-brand href=/>英荔的博客</a>
+</div>
+<div id=huxblog_navbar>
+<div class=navbar-collapse>
+<ul class="nav navbar-nav navbar-right">
+<li>
+<a href=/>Home</a>
+</li>
+<li><a href=https://www.eliteu.cn>公司官网</a></li>
+<li><a href=https://aimaker.space/>创造乐园</a></li>
+</ul>
+</div>
+</div>
+</div>
+</nav>
+<script>var $body=document.body,$toggle=document.querySelector('.navbar-toggle'),$navbar=document.querySelector('#huxblog_navbar'),$collapse=document.querySelector('.navbar-collapse');$toggle.addEventListener('click',handleMagic);function handleMagic(a){$navbar.className.indexOf('in')>0?($navbar.className=" ",setTimeout(function(){$navbar.className.indexOf('in')<0&&($collapse.style.height="0px")},400)):($collapse.style.height="auto",$navbar.className+=" in")}</script>
+<style type=text/css>header.intro-header{background-image:url(/img/Elite_Education_Office.png)}</style>
+<header class=intro-header>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<div class=post-heading>
+<div class=tags>
+<a class=tag href=/tags/python title=python>
+python
+</a>
+</div>
+<h1>递归问题</h1>
+<h2 class=subheading></h2>
+<span class=meta>
+Posted by
+英荔的博客
+on
+Tuesday, August 31, 2021
+</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<article>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+post-container">
+<p><a href=https://wwj718.github.io/post/img/Sierpinski_triangle.svg>
+<img src=https://wwj718.github.io/post/img/Sierpinski_triangle.svg alt>
+</a></p>
+<blockquote>
+<p>为了理解递归，必须首先理解递归。</p>
+</blockquote>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme5898de8a880前言><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E5%89%8D%E8%A8%80></a>前言</h2>
+<p>近期开始讲授两门编程入门课:</p>
+<ul>
+<li>其一在汇景创造乐园, 关于 Python 入门。</li>
+<li>其二在实务学堂，web 职业方向。</li>
+</ul>
+<p>上周五晚上在汇景开始第一次授课。</p>
+<p>以下是我的围绕第一次课《编程是什么?》 制作的讲稿（Google Slides）: <a href="https://docs.google.com/presentation/d/1izFfP0VBog4CMCJiE9MXaD56KPdd7uTy52uCXn8j0AU/edit?usp=sharing">编程是什么?</a></p>
+<p>课程的参与者中，@weiran 有编程经验（在编程比赛中拿过金奖）。之前与 @weiran 父亲认识，此次 @weiran 带着一些问题来听课，课后与我讨论了一些困扰他已久的递归问题， 觉得递归的概念难以理解。</p>
+<p>我给他分享了两份材料:</p>
+<ul>
+<li><a href=https://wizardforcel.gitbooks.io/sicp-py/content/>SICP Python 描述</a></li>
+<li>The Little Schemer</li>
+</ul>
+<blockquote>
+<p>递归，在数学与计算机科学中，是指在函数的定义中使用函数自身的方法。递归一词还较常用于描述以自相似方法重复事物的过程。 – 维基百科</p>
+<p>正式定义: 在数学和计算机科学中，递归指由一种（或多种）简单的基本情况定义的一类对象或方法，并规定其他所有情况都能被还原为其基本情况。 – 维基百科</p>
+</blockquote>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme98092e5bd92e698afe4b880e7a78de4bfa1e4bbb0递归是一种信仰><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E9%80%92%E5%BD%92%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BF%A1%E4%BB%B0></a>递归是一种信仰</h2>
+<blockquote>
+<p>LISP 是一门宗教， 递归是一种信仰</p>
+</blockquote>
+<p>我们先来看看《SICP Python描述》对递归的精彩讨论。</p>
+<blockquote>
+<p>将递归调用看做函数抽象叫做递归的“信仰飞跃”(leap of faith)。我们以函数自身来定义 函数，但是仅仅相信更简单的情况在验证函数正确性时会正常工作。 –《SICP Python 描述》</p>
+</blockquote>
+<p>这可能是关于如何把握递归，最精彩的描述之一。</p>
+<p>以阶乘的递归描述为例:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#ff79c6>def</span> <span style=color:#50fa7b>fact</span>(n): 
+    <span style=color:#ff79c6>if</span> n<span style=color:#ff79c6>==</span><span style=color:#bd93f9>1</span>:
+        <span style=color:#ff79c6>return</span> <span style=color:#bd93f9>1</span>
+    <span style=color:#ff79c6>return</span> n <span style=color:#ff79c6>*</span> fact(n<span style=color:#ff79c6>-</span><span style=color:#bd93f9>1</span>)
+</code></pre></div><p>这个例子中我们 <strong>相信</strong> <code>fact(n-1)</code> 会正确计算 <code>(n-1)!</code> ， 然后把 <code>fact(n-1)</code> 当作一个抽象函数(黑盒)即可，而不要试图展开去理解它！</p>
+<p>为了理解递归，你必须信任递归函数会完成它的目标。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme587a0e98193e997aee9a298几道问题><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E5%87%A0%E9%81%93%E9%97%AE%E9%A2%98></a>几道问题</h2>
+<blockquote>
+<p>语言并不是你学到的东西，而是你参与的东西。 – Arika Okrent</p>
+</blockquote>
+<p>我讨厌解题，就像讨厌写命题作文。</p>
+<p>编程是关于我想让计算机做什么，而不是我要掌握的技巧，除非那些技巧跟我想做的事情有关。</p>
+<p>所以 @weiran 给我发的几个递归题目，我没细看。相比于解几道递归题目，更重要的是理解递归想法本身的力量，而理解递归的力量，再在没有比 LISP 社区更为深刻的了，所以我跟他简单聊了LISP社区对递归的看法（受到Alan Kay、Paul Graham、SICP和LISP 1.5手册的影响），分享了一些资料。</p>
+<p>周末有空，把 @weiran 发给我的几个问题仔细看了下，似乎还挺好玩，一种脑筋急转弯的乐趣, 聊作消遣。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme997aee9a298-1问题-1><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E9%97%AE%E9%A2%98-1></a>问题 1</h3>
+<p>我们先以一道有答案的题目为例:</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG6-0.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG6-0.jpeg alt>
+</a></p>
+<p>这题目看起来是要采集到所有的蓝色能量块/宝石。</p>
+<p>不知道这是什么编程平台，准备用 Python turtle 模拟它: 走路采集宝石和 turtle 走路画出某种路径图案(宝石在路径上)是等效问题。</p>
+<p>写了个简单模拟器（使用<a href=https://www.codelab.club/blog/2020/08/20/tools#mu-editor>Mu editor</a>）:</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#ff79c6>import</span> turtle
+
+t <span style=color:#ff79c6>=</span> turtle<span style=color:#ff79c6>.</span>Turtle()
+t<span style=color:#ff79c6>.</span>speed(<span style=color:#bd93f9>1</span>) <span style=color:#6272a4># 慢速移动</span>
+
+<span style=color:#ff79c6>def</span> <span style=color:#50fa7b>step</span>(x):
+    ONE_STEP <span style=color:#ff79c6>=</span> <span style=color:#bd93f9>20</span> <span style=color:#6272a4># 步长</span>
+    t<span style=color:#ff79c6>.</span>forward(ONE_STEP <span style=color:#ff79c6>*</span> x)
+
+<span style=color:#ff79c6>def</span> <span style=color:#50fa7b>turnRight</span>():
+    t<span style=color:#ff79c6>.</span>right(<span style=color:#bd93f9>90</span>)
+
+<span style=color:#ff79c6>def</span> <span style=color:#50fa7b>turnLeft</span>():
+    t<span style=color:#ff79c6>.</span>left(<span style=color:#bd93f9>90</span>)
+</code></pre></div><p>接下来， 我们来走出这个递归图案</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#ff79c6>def</span> <span style=color:#50fa7b>recur</span>(a):
+
+    <span style=color:#6272a4># 结束条件</span>
+    <span style=color:#ff79c6>if</span> a<span style=color:#ff79c6>&lt;</span><span style=color:#bd93f9>1</span>:
+        <span style=color:#ff79c6>return</span>
+
+    <span style=color:#6272a4># 前往第1个递归位置</span>
+    turnRight()
+    step(a)
+    turnLeft()
+    step(a)
+
+    <span style=color:#6272a4># 抵达第1个递归位置</span>
+    recur(a<span style=color:#ff79c6>-</span><span style=color:#bd93f9>2</span>)  <span style=color:#6272a4># 画出下一个图案，相信这个函数会画出，别管它怎么画出</span>
+
+    <span style=color:#6272a4># 前往第2个递归位置</span>
+    step(<span style=color:#ff79c6>-</span>a)
+    turnLeft()
+    step(<span style=color:#bd93f9>2</span><span style=color:#ff79c6>*</span>a)
+    turnRight()
+    step(a)
+
+    <span style=color:#6272a4># 抵达第2个递归位置</span>
+    recur(a<span style=color:#ff79c6>-</span><span style=color:#bd93f9>2</span>)  <span style=color:#6272a4># 画出下一个图案</span>
+
+    <span style=color:#6272a4># 回到出始位置</span>
+    step(<span style=color:#ff79c6>-</span>a)
+    turnLeft()
+    step(<span style=color:#ff79c6>-</span>a)
+    turnRight()
+
+t<span style=color:#ff79c6>.</span>right(<span style=color:#bd93f9>45</span>) <span style=color:#6272a4># 初始朝向</span>
+recur(<span style=color:#bd93f9>5</span>)
+</code></pre></div><p><a href=https://wwj718.github.io/post/img/d51270cc4c5c734e9b877ea67e1e2f5e.png>
+<img src=https://wwj718.github.io/post/img/d51270cc4c5c734e9b877ea67e1e2f5e.png alt>
+</a></p>
+<p>初次接触递归的小伙伴，可能会试图在每个 recur(recursion) 函数里展开 recur 函数，大脑内存一下就不够用了。</p>
+<h3 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme6809de88083e696b9e5bc8f思考方式><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E6%80%9D%E8%80%83%E6%96%B9%E5%BC%8F></a>思考方式</h3>
+<p>思考递归的关键是 <strong>相信</strong> 递归函数会完成它的目标。</p>
+<p>观察上边的结构。</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG6-2.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG6-2.jpeg alt>
+</a></p>
+<p>我们发现上边蓝线标注的图案，反复出现（递归），我们把它下一次出现的位置(绿色星星)称为递归位置， 只需要关注子代的递归位置即可，别去管太远的后代。</p>
+<p>开始定义递归函数: recur(你可以把它叫做 <strong>画出蓝线图案</strong>， 接受一个参数: 走几步)，重点是 <strong>相信</strong> 递归函数会完成它的目标，然后，抽象地使用它（关注语义，而不是实现）。</p>
+<p>总结来说, 定义一个递归函数，在函数内做一下几件事:</p>
+<ul>
+<li>确定递归位置(当前题目有左右两个递归位置)</li>
+<li>依次前往递归位置（在每个递归位置，确认与初始状态（朝向）一致）</li>
+<li>调用递归函数，画出下一个递归图案（<strong>相信</strong> 递归函数会画出蓝线，只是参数不同）</li>
+<li>回到初始位置（确保姿态和初始状态一致）</li>
+<li>注意结束条件.</li>
+</ul>
+<hr>
+<p>在另一道题上试试我们的方法:</p>
+<p><a href=https://wwj718.github.io/post/img/8d6648ea5c6022e48f2c4d3f80aaf33c.png>
+<img src=https://wwj718.github.io/post/img/8d6648ea5c6022e48f2c4d3f80aaf33c.png alt>
+</a></p>
+<p>首先我们观察到递归绘制的图形是:</p>
+<p><a href=https://wwj718.github.io/post/img/8d6648ea5c6022e48f2c4d3f80aaf33c-2.png>
+<img src=https://wwj718.github.io/post/img/8d6648ea5c6022e48f2c4d3f80aaf33c-2.png alt>
+</a></p>
+<p>然后开始写代码</p>
+<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#ff79c6>def</span> <span style=color:#50fa7b>recur</span>(a):
+
+    <span style=color:#6272a4># 结束条件</span>
+    <span style=color:#ff79c6>if</span> a<span style=color:#ff79c6>&lt;</span><span style=color:#bd93f9>2</span>:
+        <span style=color:#ff79c6>return</span>
+
+    <span style=color:#6272a4># 前往第1个递归位置</span>
+    step(a)
+
+    <span style=color:#6272a4># 抵达第1个递归位置</span>
+    recur(a<span style=color:#ff79c6>/</span><span style=color:#bd93f9>2</span>) <span style=color:#6272a4># 描述与下一个图形的关系</span>
+
+    <span style=color:#6272a4># 前往第2个递归位置</span>
+    step(<span style=color:#ff79c6>-</span>a)
+    turnLeft()
+    step(a)
+    <span style=color:#6272a4># 抵达第2个递归位置</span>
+    turnRight()
+    recur(a<span style=color:#ff79c6>/</span><span style=color:#bd93f9>2</span>)
+
+    <span style=color:#6272a4># 回到出始位置和状态</span>
+    turnLeft()
+    step(<span style=color:#ff79c6>-</span>a)
+    turnRight()
+
+t<span style=color:#ff79c6>.</span>right(<span style=color:#bd93f9>135</span>) <span style=color:#6272a4># 初始朝向</span>
+recur(<span style=color:#bd93f9>8</span>)
+</code></pre></div><p><a href=https://wwj718.github.io/post/img/466c8d3261da8f7832ee254710a7392d.png>
+<img src=https://wwj718.github.io/post/img/466c8d3261da8f7832ee254710a7392d.png alt>
+</a></p>
+<h3 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme585b6e4bb96e7bb83e4b9a0e9a298其他练习题><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E5%85%B6%E4%BB%96%E7%BB%83%E4%B9%A0%E9%A2%98></a>其他练习题</h3>
+<p>大家有兴趣可以试试其他练习题:</p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG2.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG2.jpeg alt>
+</a></p>
+<p><a href=https://wwj718.github.io/post/img/WechatIMG3.jpeg>
+<img src=https://wwj718.github.io/post/img/WechatIMG3.jpeg alt>
+</a></p>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme5b08fe7bb93小结><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E5%B0%8F%E7%BB%93></a>小结</h2>
+<p>通过以上这类递归题目: 在空间里走出目标路径(等效于绘制几何图形)，我们分享了思考递归的一些有力方式。</p>
+<p>递归的趣味和力量远不止如此。</p>
+<p>如果你只是把递归看作一种解题技巧，那么你会错失它的真正力量。</p>
+<p>试着把它看作看待/描述问题的方式，这是LISP社区一贯以来的视角。</p>
+<p>如果你想真正掌握递归的力量，你应该进入 LISP 社区的 context。</p>
+<p>如果你是 Python 用户，《SICP Python 描述》是很好的入口， 如果你愿意入门 LISP，试试《The Little Schemer》。</p>
+<blockquote>
+<p>一种不会影响你思考编程方式的语言是不值得学习的 – Alan Kay</p>
+</blockquote>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme4b88ee98092e5bd92e69c89e585b3e79a84e4b880e4ba9be5bcbae69c89e58a9be8a782e782b9-powerful-ideas与递归有关的一些强有力观点powerful-ideas><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E4%B8%8E%E9%80%92%E5%BD%92%E6%9C%89%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E5%BC%BA%E6%9C%89%E5%8A%9B%E8%A7%82%E7%82%B9-powerful-ideas></a>与递归有关的一些强有力观点(Powerful Ideas)</h2>
+<ul>
+<li>将代码看做递归数据结构 （LISP: S表达式）</li>
+<li>将对象看做递归的计算机 (Smalltalk: 对象负责计算)</li>
+</ul>
+<p>以上想法为这两门语言带来了晚绑定(late binding)的能力，是它们灵活性的根源之一。</p>
+<p>也为这两门语言带来了强大的元能力。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme99984附><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E9%99%84></a>附</h2>
+<p>关于递归的性能问题以及改进方案， 《SICP Python 描述》 也有精彩讨论。</p>
+<h2 id=httpswwj718githubioposte7bc96e7a88brecursion-probleme58f82e88083参考><a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/#%E5%8F%82%E8%80%83></a>参考</h2>
+<ul>
+<li>SICP</li>
+<li><a href=https://wizardforcel.gitbooks.io/sicp-py/content/>SICP Python阐述 中文版</a></li>
+<li><a href=https://docs.python.org/zh-cn/3/library/turtle.html>Python turtle</a></li>
+<li><a href=https://realpython.com/beginners-guide-python-turtle/>The Beginner’s Guide to Python Turtle(realpython)</a></li>
+<li><a href=https://en.wikipedia.org/wiki/Recursion>Recursion</a></li>
+<li><a href=https://en.wikipedia.org/wiki/Self-reference>Self reference</a></li>
+</ul>
+<hr>
+<p><em>本文转载自 夜行人的博客</em> - <a href=https://wwj718.github.io/post/%E7%BC%96%E7%A8%8B/recursion-problem/>递归问题</a></p>
+<hr>
+<ul class=pager>
+<li class=previous>
+<a href=/post/python/minecraft/ data-toggle=tooltip data-placement=top title=我的世界(Minecraft)>&larr;
+Previous Post</a>
+</li>
+<li class=next>
+<a href=/post/python/public-computer-rpi/ data-toggle=tooltip data-placement=top title=公共树莓派>Next
+Post &rarr;</a>
+</li>
+</ul>
+</div>
+<div class="col-lg-2 col-lg-offset-0
+visible-lg-block
+sidebar-container
+catalog-container">
+<div class=side-catalog>
+<hr class="hidden-sm hidden-xs">
+<h5>
+<a class=catalog-toggle href=#>CATALOG</a>
+</h5>
+<ul class=catalog-body></ul>
+</div>
+</div>
+<div class="col-lg-8 col-lg-offset-2
+col-md-10 col-md-offset-1
+sidebar-container">
+<section>
+<hr class="hidden-sm hidden-xs">
+<h5><a href=/tags/>FEATURED TAGS</a></h5>
+<div class=tags>
+<a href=/tags/microblocks title=microblocks>
+microblocks
+</a>
+<a href=/tags/python title=python>
+python
+</a>
+</div>
+</section>
+</div>
+</div>
+</div>
+</article>
+<footer>
+<div class=container>
+<div class=row>
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul class="list-inline text-center">
+<li>
+<a href rel=alternate type=application/rss+xml title=英荔的博客>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a href=mailto:code@aimaker.space>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fas fa-envelope fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=http://aimaker.space/img/wechat.png>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-weixin fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+<li>
+<a target=_blank href=https://github.com/longan-link>
+<span class="fa-stack fa-lg">
+<i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-github fa-stack-1x fa-inverse"></i>
+</span>
+</a>
+</li>
+</ul>
+<p class="copyright text-muted">
+Copyright &copy; 英荔的博客 2022
+<br>
+<a href=https://themes.gohugo.io/hugo-theme-cleanwhite>CleanWhite Hugo Theme</a> by <a href=https://zhaohuabing.com>Huabing</a> |
+<iframe style=margin-left:2px;margin-bottom:-5px frameborder=0 scrolling=0 width=100px height=20px src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true"></iframe>
+</p>
+</div>
+</div>
+</div>
+</footer>
+<script>function loadAsync(f,b){var c=document,d='script',a=c.createElement(d),e=c.getElementsByTagName(d)[0];a.src=f,b&&a.addEventListener('load',function(a){b(null,a)},!1),e.parentNode.insertBefore(a,e)}</script>
+<script>$('#tag_cloud').length!==0&&loadAsync("/js/jquery.tagcloud.js",function(){$.fn.tagcloud.defaults={color:{start:'#bbbbee',end:'#0085a1'}},$('#tag_cloud a').tagcloud()})</script>
+<script>loadAsync("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js",function(){var a=document.querySelector("nav");a&&FastClick.attach(a)})</script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-XXXXX-X','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<script type=text/javascript>function generateCatalog(a){_containerSelector='div.post-container';var h=$(_containerSelector),c,d,e,f,g,b;return c=h.find('h1,h2,h3,h4,h5,h6'),$(a).html(''),c.each(function(){d=$(this).prop('tagName').toLowerCase(),g="#"+$(this).prop('id'),e=$(this).text(),b=$('<a href="'+g+'" rel="nofollow">'+e+'</a>'),f=$('<li class="'+d+'_nav"></li>').append(b),$(a).append(f)}),!0}generateCatalog(".catalog-body"),$(".catalog-toggle").click(function(a){a.preventDefault(),$('.side-catalog').toggleClass("fold")}),loadAsync("/js/jquery.nav.js",function(){$('.catalog-body').onePageNav({currentClass:"active",changeHash:!1,easing:"swing",filter:"",scrollSpeed:700,scrollOffset:0,scrollThreshold:.2,begin:null,end:null,scrollChange:null,padding:80})})</script>
+</body>
+</html>
